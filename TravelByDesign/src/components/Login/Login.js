@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, TextInput, TouchableOpacity, Text} from "react-native";
+import {KeyboardAvoidingView} from 'react-native';
 
 export default class Login extends Component{
     render() {
@@ -12,7 +13,7 @@ export default class Login extends Component{
                 />
             </View>
         
-            <View style={styles.formContainer}>
+            <KeyboardAvoidingView style={styles.formContainer} behavior="position" enabled>
                 <TextInput 
                 placeholder= "username or email" 
                 style={styles.input}
@@ -29,7 +30,7 @@ export default class Login extends Component{
             <TouchableOpacity style={styles.buttonContainer}>
                 <Text style={styles.buttonText}>SIGN UP</Text>
             </TouchableOpacity>
-            </View>
+            </KeyboardAvoidingView>
 
         </View>
         );
@@ -53,9 +54,9 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 40,
-        backgroundColor: 'rgba(255,255,255,0.2)',
+        backgroundColor: 'rgba(255,255,255, 0.9)',
         marginBottom: 20,
-        color: '#FFF',
+        color: '#1E1E1E',
         paddingHorizontal: 10
     },
     buttonContainer: {
