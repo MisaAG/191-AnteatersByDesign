@@ -19,13 +19,12 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import Login from './src/components/Login/Login';
-import LoginForm from './src/components/Login/LoginForm';
+//import LoginForm from './src/components/Login/LoginForm';
 
 const App: () => React$Node = () => {
   return (
     <>
     <Login />
-    <LoginForm />
     </>
   );
 };
