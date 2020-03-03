@@ -19,6 +19,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import Login from './src/components/Login/Login';
+import Post from './src/components/Post/Post';
 import Feed from './src/components/Feed/Feed';
 
 const App: () => React$Node = () => {
