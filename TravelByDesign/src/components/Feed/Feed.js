@@ -68,6 +68,50 @@ export default class Feed extends React.Component {
                     </View>
 
 
+
+                    <View style={styles.container}>
+                        <Text style={styles.headerTitle}>
+                            Trending
+                        </Text>
+
+                        <View style={styles.post}>
+                            <ScrollView
+                                horizontal={true}
+                                showsHorizontalScrollIndicator={false}
+                            >
+
+                                <View style={styles.carousel}>
+                                    <View style={{flex:2}}>
+                                        <Image source={require('./pic.jpg')} style={styles.image} />
+                                    </View>
+                                </View>
+
+                                <View style={styles.carousel}>
+                                    <View style={{flex:2}}>
+                                        <Image source={require('./pic.jpg')} style={styles.image} />
+                                    </View>
+                                </View>
+
+                                <View style={styles.carousel}>
+                                    <View style={{flex:2}}>
+                                        <Image source={require('./pic.jpg')} style={styles.image} />
+                                    </View>
+                                </View>
+
+                                <View style={styles.carousel}>
+                                    <View style={{flex:2}}>
+                                        <Image source={require('./pic.jpg')} style={styles.image} />
+                                    </View>
+                                </View>
+
+
+                            </ScrollView>
+
+                        </View>
+
+                    </View>
+
+
                 </ScrollView>
 
             </View>
