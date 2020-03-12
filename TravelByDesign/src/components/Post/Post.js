@@ -13,7 +13,7 @@ posts = [
     }
 ]
 
-export default class Feed extends React.Component {
+export default class Post extends React.Component {
     renderPost = post => {
         return(
             <View style={styles.feedItem}>
@@ -40,10 +40,10 @@ export default class Feed extends React.Component {
                     <Text style={styles.headerTitle}>Post</Text>
                 </View>
 
-                <FlatList 
-                    style={styles.feed} 
-                    data={posts} 
-                    renderItem={({item}) => this.renderPost(item)} 
+                <FlatList
+                    style={styles.feed}
+                    data={posts}
+                    renderItem={({item}) => this.renderPost(item)}
                     keyExtractor={item => item.id}
                     showsHorizontalScrollIndicator={false}
                  />
