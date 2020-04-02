@@ -19,7 +19,8 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import Login from './src/components/Login/Login';
-import Carousel from './src/components/Post/Carousel';
+import Post from './src/components/Post/Post';
+//import Carousel from './src/components/Post/Carousel';
 import Feed from './src/components/Feed/Feed';
 
 const App: () => React$Node = () => {

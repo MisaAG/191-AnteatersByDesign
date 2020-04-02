@@ -38,25 +38,25 @@ export default class Feed extends React.Component {
 
                                 <View style={styles.carousel}>
                                     <View style={{flex:2}}>
-                                        <Image source={require('./pic.jpg')} style={styles.image} />
+                                        <Image source={require('./downtown.jpg')} style={styles.image} />
                                     </View>
                                 </View>
 
                                 <View style={styles.carousel}>
                                     <View style={{flex:2}}>
-                                        <Image source={require('./pic.jpg')} style={styles.image} />
+                                        <Image source={require('./park.jpeg')} style={styles.image} />
                                     </View>
                                 </View>
 
                                 <View style={styles.carousel}>
                                     <View style={{flex:2}}>
-                                        <Image source={require('./pic.jpg')} style={styles.image} />
+                                        <Image source={require('./chinatown.jpg')} style={styles.image} />
                                     </View>
                                 </View>
 
                                 <View style={styles.carousel}>
                                     <View style={{flex:2}}>
-                                        <Image source={require('./pic.jpg')} style={styles.image} />
+                                        <Image source={require('./salesforce.jpg')} style={styles.image} />
                                     </View>
                                 </View>
 
@@ -88,19 +88,19 @@ export default class Feed extends React.Component {
 
                                 <View style={styles.carousel}>
                                     <View style={{flex:2}}>
-                                        <Image source={require('./pic.jpg')} style={styles.image} />
+                                        <Image source={require('./kyoto.jpg')} style={styles.image} />
                                     </View>
                                 </View>
 
                                 <View style={styles.carousel}>
                                     <View style={{flex:2}}>
-                                        <Image source={require('./pic.jpg')} style={styles.image} />
+                                        <Image source={require('./times.jpg')} style={styles.image} />
                                     </View>
                                 </View>
 
                                 <View style={styles.carousel}>
                                     <View style={{flex:2}}>
-                                        <Image source={require('./pic.jpg')} style={styles.image} />
+                                        <Image source={require('./bali.jpg')} style={styles.image} />
                                     </View>
                                 </View>
 
@@ -128,11 +128,11 @@ const styles = StyleSheet.create({
         paddingTop: 15
     },
     carousel: {
-        height:250, 
-        width:130, 
-        marginLeft:20, 
-        borderWidth:0.5, 
-        borderColor:"gray" 
+        height:250,
+        width:130,
+        marginLeft:20,
+        borderWidth:0.5,
+        borderColor:"gray"
     },
     header: {
         paddingTop: 64,
