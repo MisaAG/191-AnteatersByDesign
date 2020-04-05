@@ -21,33 +21,30 @@ export default class Post extends React.Component {
         this.state = {
             carousel : [
                     {
-                        //id: "1",
-                        name: "Joe McKay",
+                        id: "1",
                         text:
-                            "This is my trip to Bali",
-                        avatar: require("./profile.jpg"),
+                            "This is my trip to France",
                         image: require("./pic.jpg"),
-                        timeStamp: "1/1/2020"
                     },
                     {
-                        //id: "2",
-                        name: "Joe McKay",
+                        id: "2",
                         text:
-                            "This is my trip to Bali",
-                        avatar: require("./profile.jpg"),
+                            "This is my trip to France",
                         image: require("./pic.jpg"),
-                        timeStamp: "1/1/2020"
                     },
                     {
-                        //id: "3",
-                        name: "Joe McKay",
+                        id: "3",
                         text:
-                            "This is my trip to Bali",
-                        avatar: require("./profile.jpg"),
+                            "This is my trip to France",
                         image: require("./pic.jpg"),
-                        timeStamp: "1/1/2020"
                     }
-            ]
+            ],
+
+            userInfo : {
+                name: "John Doe",
+                timeStamp: "1/1/2020",
+                avatar: require("./profile.jpg")
+            }
         }
     }
 
@@ -75,8 +72,10 @@ export default class Post extends React.Component {
    renderPost= ({item, index}) => {
     return (
         <View>
-            <Image source={require("./pic.jpg")} style={styles.postImage}/>
-            
+            <Image source={item.image} style={styles.postImage} resizeMode="cover"/>
+            <View style={styles.feedItem}>
+            <Text style={styles.posts}>{item.text}</Text>
+            </View>
         </View>
     );
 }
@@ -89,6 +88,19 @@ export default class Post extends React.Component {
                     <Text style={styles.headerTitle}>Post</Text>
                 </View>
 
+                <View style={styles.feedItem}>
+                <Image source={this.state.userInfo.avatar} style={styles.avatar} />
+                <View style={{flex: 1}}>
+                    <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+                        <View>
+                            <Text style={styles.name}>{this.state.userInfo.name}</Text>
+                            <Text style={styles.name}>{this.state.userInfo.timeStamp}</Text>
+                        </View>
+                    </View>
+                </View>
+                </View>
+                
+
             <Carousel
               style={styles.feed}
               ref={ ref =>  this.carousel = ref }
@@ -97,7 +109,7 @@ export default class Post extends React.Component {
               itemWidth={itemWidth}
               renderItem = {this.renderPost}
             />
-                    
+            
             </SafeAreaView>
 
         );
