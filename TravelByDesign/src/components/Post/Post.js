@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, FlatList, Image} from "react-native";
+import { StyleSheet, View, Text, FlatList, Image, SafeAreaView, Dimensions} from "react-native";
+import Carousel from 'react-native-snap-carousel';
 
 posts = [
     {
@@ -14,6 +15,43 @@ posts = [
 ]
 
 export default class Post extends React.Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            carousel : [
+                    {
+                        //id: "1",
+                        name: "Joe McKay",
+                        text:
+                            "This is my trip to Bali",
+                        avatar: require("./profile.jpg"),
+                        image: require("./pic.jpg"),
+                        timeStamp: "1/1/2020"
+                    },
+                    {
+                        //id: "2",
+                        name: "Joe McKay",
+                        text:
+                            "This is my trip to Bali",
+                        avatar: require("./profile.jpg"),
+                        image: require("./pic.jpg"),
+                        timeStamp: "1/1/2020"
+                    },
+                    {
+                        //id: "3",
+                        name: "Joe McKay",
+                        text:
+                            "This is my trip to Bali",
+                        avatar: require("./profile.jpg"),
+                        image: require("./pic.jpg"),
+                        timeStamp: "1/1/2020"
+                    }
+            ]
+        }
+    }
+
+    /*
     renderPost = post => {
         return(
             <View style={styles.feedItem}>
@@ -32,27 +70,46 @@ export default class Post extends React.Component {
             </View>
         );
     };
+    */
+
+   renderPost= ({item, index}) => {
+    return (
+        <View>
+            <Image source={require("./pic.jpg")} style={styles.postImage}/>
+            
+        </View>
+    );
+}
 
     render() {
         return(
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
+                
                 <View style={styles.header}>
                     <Text style={styles.headerTitle}>Post</Text>
                 </View>
 
-                <FlatList
-                    style={styles.feed}
-                    data={posts}
-                    renderItem={({item}) => this.renderPost(item)}
-                    keyExtractor={item => item.id}
-                    showsHorizontalScrollIndicator={false}
-                 />
-            </View>
+            <Carousel
+              style={styles.feed}
+              ref={ ref =>  this.carousel = ref }
+              data={this.state.carousel}
+              sliderWidth={sliderWidth}
+              itemWidth={itemWidth}
+              renderItem = {this.renderPost}
+            />
+                    
+            </SafeAreaView>
 
         );
     }
 
 }
+
+const horizontalMargin = 20;
+const slideWidth = 280;
+
+const sliderWidth = Dimensions.get('window').width;
+const itemWidth = slideWidth + horizontalMargin * 2;
 
 const styles = StyleSheet.create({
     container: {
@@ -60,7 +117,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#EFECF4",
     },
     header: {
-        paddingTop: 64,
+        paddingTop: 44,
         paddingBottom: 16,
         backgroundColor: "#FFF",
         alignItems: "center",
@@ -105,7 +162,7 @@ const styles = StyleSheet.create({
     },
     postImage: {
         width: undefined,
-        height: 150,
+        height: 350,
         marginVertical: 16
     }
 
