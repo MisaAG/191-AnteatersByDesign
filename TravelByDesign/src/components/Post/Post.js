@@ -2,17 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, FlatList, Image, SafeAreaView, Dimensions} from "react-native";
 import Carousel from 'react-native-snap-carousel';
 
-posts = [
-    {
-        id: "1",
-        name: "Joe McKay",
-        text:
-            "This is my trip to Bali",
-        avatar: require("./profile.jpg"),
-        image: require("./pic.jpg"),
-        timeStamp: "1/1/2020"
-    }
-]
 
 export default class Post extends React.Component {
 
@@ -47,27 +36,6 @@ export default class Post extends React.Component {
             }
         }
     }
-
-    /*
-    renderPost = post => {
-        return(
-            <View style={styles.feedItem}>
-                <Image source={post.avatar} style={styles.avatar} />
-                <View style={{flex: 1}}>
-                    <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
-                        <View>
-                            <Text style={styles.name}>{post.name}</Text>
-                            <Text style={styles.name}>{post.timeStamp}</Text>
-                        </View>
-                    </View>
-
-                    <Image source={post.image} style={styles.postImage} resizeMode="cover"/>
-                    <Text style={styles.posts}>{post.text}</Text>
-                </View>
-            </View>
-        );
-    };
-    */
 
    renderPost= ({item, index}) => {
     return (

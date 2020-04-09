@@ -21,11 +21,12 @@ import {
 import Login from './src/components/Login/Login';
 import Post from './src/components/Post/Post';
 import Feed from './src/components/Feed/Feed';
+import BucketList from './src/components/BucketList/BucketList';
 
 const App: () => React$Node = () => {
   return (
     <>
-    <Post />
+    <BucketList />
     </>
   );
 };
