@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, FlatList, Image, SafeAreaView, Dimensions} from "react-native";
+import CreateBucketList from './CreateBucketList';
 
 const numColumns = 2
 const WIDTH = Dimensions.get('window').width
@@ -50,10 +51,9 @@ export default class BucketList extends React.Component {
                 <View style={styles.header}>
                     <Text style={styles.headerTitle}>Bucket List</Text>
                 </View>
-                {/*
+                
                 <Image style={styles.add} source={require('./add_blue.jpg')}/>
-                <Image style={styles.bucketlist} source={require('./pic.jpg')}/>
-                */}
+                
 
                 <FlatList
                 data={this.formatData(this.state.bucketList, numColumns)}
@@ -85,7 +85,12 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: "500"
     },
-
+    add: {
+        height: 150,
+        width: 150,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     itemStyle:{
         alignItems: 'center',
         justifyContent: 'center',
