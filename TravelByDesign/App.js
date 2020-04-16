@@ -23,11 +23,12 @@ import Post from './src/components/Post/Post';
 import Feed from './src/components/Feed/Feed';
 import BucketList from './src/components/BucketList/BucketList';
 import CreateBucketList from './src/components/BucketList/CreateBucketList';
+import CreatePost from './src/components/Post/CreatePost';
 
 const App: () => React$Node = () => {
   return (
     <>
-    <CreateBucketList />
+    <CreatePost />
     </>
   );
 };
