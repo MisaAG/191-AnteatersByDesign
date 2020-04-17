@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React from 'react'
 import {
   SafeAreaView,
   StyleSheet,
@@ -8,29 +7,28 @@ import {
   Text,
   TextInput,
   StatusBar,
-} from 'react-native';
-
+} from 'react-native'
 import {
   Header,
   LearnMoreLinks,
   Colors,
   DebugInstructions,
   ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+} from 'react-native/Libraries/NewAppScreen'
 
-import Login from './src/components/Login/Login';
-import Post from './src/components/Post/Post';
-import Feed from './src/components/Feed/Feed';
-import BucketList from './src/components/BucketList/BucketList';
-import CreateBucketList from './src/components/BucketList/CreateBucketList';
+import Login from './src/components/Login/Login'
+import Post from './src/components/Post/Post'
+import Feed from './src/components/Feed/Feed'
+import BucketList from './src/components/BucketList/BucketList'
+import CreateBucketList from './src/components/BucketList/CreateBucketList'
 
 const App: () => React$Node = () => {
   return (
     <>
-    <CreateBucketList />
+      <Feed />
     </>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -69,8 +67,6 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     textAlign: 'right',
   },
-});
+})
 
-
-
-export default App;
+export default App
