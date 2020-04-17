@@ -24,12 +24,20 @@ export default class CreatePost extends Component{
         return(
         <View style={styles.container}>
         
-            <KeyboardAvoidingView behavior="position" enabled>
-                <TextInput 
-                placeholder= "Journey Name" 
-                style={styles.input}
-                  />    
-            </KeyboardAvoidingView>
+            <View style={styles.topRow}>
+                <Image 
+                    source = {require('./backButton.png')}
+                    style = {styles.backButton}
+                />
+                    <TextInput 
+                    placeholder= "Journey Name" 
+                    style={styles.input}
+                    />  
+                <Image 
+                    source = {require('./checkmark.png')}
+                    style = {styles.checkButton}
+                />  
+            </View>
 
             <View style={{flex: 2, alignItems: "center", justifyContent: "center"}}>
                 {photo && (
@@ -62,14 +70,14 @@ export default class CreatePost extends Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 70
+        padding: 20
     },
     input: {
         height: 50,
         backgroundColor: 'rgba(220,220,220, 0.9)',
         marginBottom: 20,
         color: '#1E1E1E',
-        paddingHorizontal: 10,
+        paddingHorizontal: 80,
     
     },
     inputLocation: {
@@ -106,5 +114,19 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 10
     },
+    backButton: {
+        width: 50,
+        height: 50
+    },
+    checkButton: {
+        width: 38,
+        height: 40
+    },
+    topRow: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-around",
+        paddingTop: 30
+    }
 
 });
