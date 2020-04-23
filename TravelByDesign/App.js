@@ -1,5 +1,6 @@
 
-import React from 'react';
+import 'react-native-gesture-handler';
+import React, { Component } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -25,12 +26,44 @@ import BucketList from './src/components/BucketList/BucketList';
 import CreateBucketList from './src/components/BucketList/CreateBucketList';
 import CreatePost from './src/components/Post/CreatePost';
 
+import { NavigationContainer, StackActions } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+/*
 const App: () => React$Node = () => {
   return (
     <>
     <CreatePost />
     </>
   );
+};
+*/
+
+const loginStack = createStackNavigator();
+const bottomTab = createBottomTabNavigator();
+
+export default class App extends Component {
+
+  
+
+  render() {
+
+    createLoginStack = () =>
+  <loginStack.Navigator>
+    <loginStack.Screen name='Login' component={Login}/>
+    
+  </loginStack.Navigator>
+    return(
+      <NavigationContainer> 
+        <bottomTab.Navigator>
+          <bottomTab.Screen name='Feed' component={Feed}/>
+          <bottomTab.Screen name='CreatePost' component={CreatePost}/>
+          <bottomTab.Screen name='BucketList' component={BucketList} />
+        </bottomTab.Navigator>
+      </NavigationContainer>
+      
+    )
+  }
 };
 
 const styles = StyleSheet.create({
@@ -74,4 +107,3 @@ const styles = StyleSheet.create({
 
 
 
-export default App;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, TextInput, TouchableOpacity, Text} from "react-native";
+import { StyleSheet, View, Image, TextInput, TouchableOpacity, Text, Button} from "react-native";
 import {KeyboardAvoidingView} from 'react-native';
 
 export default class Login extends Component{
@@ -23,10 +23,14 @@ export default class Login extends Component{
                 secureTextEntry
                 style={styles.input}
                   />
-
-            <TouchableOpacity style={styles.buttonContainer}>
-                <Text style={styles.buttonText}>LOGIN</Text>
-            </TouchableOpacity>
+            <Button 
+                title="LOGIN"
+                
+                >
+                <TouchableOpacity style={styles.buttonContainer}>
+                    <Text style={styles.buttonText}>LOGIN</Text>
+                </TouchableOpacity>
+            </Button>
             <TouchableOpacity style={styles.buttonContainer}>
                 <Text style={styles.buttonText}>SIGN UP</Text>
             </TouchableOpacity>
