@@ -7,24 +7,45 @@ import pic2 from '../../data/park.jpeg'
 import pic3 from '../../data/chinatown.jpg'
 import pic4 from '../../data/salesforce.jpg'
 
-function PreviewCarousel(props) {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.headerTitle}>{props.title}</Text>
-
-      <View style={styles.post}>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <PreviewCard image={pic1} />
-          <PreviewCard image={pic2} />
-          <PreviewCard image={pic3} />
-          <PreviewCard image={pic4} />
-        </ScrollView>
+export default class PreviewCarousel extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      data: [
+        {
+          id: '1',
+          image: pic1,
+        },
+        {
+          id: '2',
+          image: pic2,
+        },
+        {
+          id: '3',
+          image: pic3,
+        },
+        {
+          id: '4',
+          image: pic4,
+        },
+      ],
+    }
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.headerTitle}>{this.props.title}</Text>
+        <View style={styles.post}>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            {this.state.data.map((post, index) => {
+              return <PreviewCard key={index} image={post.image} />
+            })}
+          </ScrollView>
+        </View>
       </View>
-    </View>
-  )
+    )
+  }
 }
-
-export default PreviewCarousel
 
 const styles = StyleSheet.create({
   container: {

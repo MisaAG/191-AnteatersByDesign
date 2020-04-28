@@ -1,11 +1,14 @@
 import React from 'react'
-import {StyleSheet, View, Text, Image} from 'react-native'
+import {StyleSheet, View, TouchableOpacity, Image} from 'react-native'
 
 function PreviewCard(props) {
+  const onPress = () => 1 + 2
   return (
     <View style={styles.card}>
       <View style={{flex: 2}}>
-        <Image source={props.image} style={styles.image} />
+        <TouchableOpacity style={styles.image} onPress={onPress}>
+          <Image source={props.image} style={styles.image} />
+        </TouchableOpacity>
       </View>
     </View>
   )
@@ -23,8 +26,8 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    width: null,
-    height: null,
+    width: '100%',
+    height: '100%',
     resizeMode: 'cover',
   },
 })
