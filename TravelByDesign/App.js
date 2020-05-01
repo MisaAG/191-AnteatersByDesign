@@ -9,6 +9,7 @@ import {
   Text,
   TextInput,
   StatusBar,
+  Button
 } from 'react-native';
 
 import {
@@ -30,7 +31,10 @@ import CreatePost from './src/components/Post/CreatePost';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator, BottomTabView } from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { mdiHome } from '@mdi/js';
+
 
 //import * as firebase from 'firebase';
 
@@ -50,15 +54,45 @@ const App: () => React$Node = () => {
 };
 */
 
+// Place Holder Screens
+Search = () =>
+  <View style={styles.center}>
+    <Text style={styles.title}>Search</Text>
+  </View>
+
+Profile = () =>
+  <View style={styles.center}>
+    <Text style={styles.title}>Profile</Text>
+    <Button title='Edit Profile'>
+     
+    </Button>
+    <Button title='Settings'>
+      Settings
+    </Button>
+  </View>
+
+EditProfile = () =>
+  <View style={styles.center}>
+    <Text style={styles.title}>Edit Profile</Text>
+
+  </View>
+
+Settings = () =>
+  <View style={styles.center}>
+    <Text style={styles.title}>Settings</Text>
+  </View>
+
 
 const AppStack = createStackNavigator();
 
 const AuthStack =createStackNavigator();
 
-const loginStack = createStackNavigator();
 const bottomTab = createBottomTabNavigator();
+const searchStack = createStackNavigator();
 const bucketListPage = createStackNavigator();
 const CreatePostPage = createStackNavigator();
+const ProfileStack = createStackNavigator();
+
 
 //const switchStack = createSwitchNavigator();
 
@@ -88,12 +122,57 @@ function OpenApp() {
         component={Feed}
         options={{
           tabBarLabel: 'Feed',
-          title: "Home"
-        }
-      }
+          title: "Home",
+          tabBarLabel: 'Home',
+          tabBarIcon: () => (
+            <Icon style={[{ color: 'black' }]} size={25} name={"home"} />
+          )
+        }}
       />
-      <bottomTab.Screen name='Create Post' component={PostPageStack}/>
-      <bottomTab.Screen name='Bucket List' children={BucketListStack} />
+      <bottomTab.Screen name='Search' 
+      component={SearchStack}
+      options={{
+        tabBarLabel: 'Search',
+        title: "Search",
+        tabBarLabel: 'Search',
+        tabBarIcon: () => (
+          <Icon style={[{ color: 'black' }]} size={25} name={"magnify"} />
+        ) 
+      }}
+        />
+      <bottomTab.Screen name='Create Post' 
+      component={PostPageStack}
+      options={{
+        tabBarLabel: 'Post',
+        title: "Create Post",
+        tabBarLabel: 'Post',
+        tabBarIcon: () => (
+          <Icon style={[{ color: 'black' }]} size={25} name={"upload"} />
+        ) 
+      }}
+      />
+      <bottomTab.Screen name='Bucket List' 
+      children={BucketListStack} 
+      options={{
+        tabBarLabel: 'Bucket List',
+        title: "Bucket List",
+        tabBarLabel: 'Bucket List',
+        tabBarIcon: () => (
+          <Icon style={[{ color: 'black' }]} size={25} name={"bitbucket"} />
+        ) 
+      }}
+      />
+      <bottomTab.Screen name='Profile' 
+      children={profileStack} 
+      options={{
+        tabBarLabel: 'Profile',
+        title: "Profile",
+        tabBarLabel: 'Profile',
+        tabBarIcon: () => (
+          <Icon style={[{ color: 'black' }]} size={25} name={"cookie"} />
+        ) 
+      }}
+      />
     </bottomTab.Navigator>
   );
 }
@@ -101,9 +180,17 @@ function OpenApp() {
 function BucketListStack() {
   return (
     <bucketListPage.Navigator>
-      <bucketListPage.Screen name="bucketList" component={BucketList}/>
-      <bucketListPage.Screen name="newBucketList" children={CreateBucketList}/>
+      <bucketListPage.Screen name="Bucket List" component={BucketList}/>
+      <bucketListPage.Screen name="Create New Bucket List" children={CreateBucketList}/>
     </bucketListPage.Navigator>
+  );
+}
+
+function SearchStack() {
+  return(
+    <searchStack.Navigator>
+      <searchStack.Screen name='Search' component={Search} />
+    </searchStack.Navigator>
   );
 }
 
@@ -113,6 +200,16 @@ function PostPageStack() {
       <CreatePostPage.Screen name="Create Post" component={CreatePost}/>
     </CreatePostPage.Navigator>
   );
+}
+
+function profileStack() {
+  return(
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen name="Profile" component={Profile}/>
+      <ProfileStack.Screen name="Edit Profile" component={EditProfile}/>
+      <ProfileStack.Screen name="Settings" component={Settings}/>
+    </ProfileStack.Navigator>
+  )
 }
 
 export default class App extends Component {
@@ -134,7 +231,6 @@ export default class App extends Component {
           <NavigationContainer>
             <Root/>
           </NavigationContainer>
-          
         </>
       )
       
