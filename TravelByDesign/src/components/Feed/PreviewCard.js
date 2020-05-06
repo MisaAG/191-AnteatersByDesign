@@ -1,8 +1,10 @@
 import React from 'react'
 import {StyleSheet, View, TouchableOpacity, Image} from 'react-native'
+import {useNavigation} from '@react-navigation/native'
 
 function PreviewCard(props) {
-  const onPress = () => 1 + 2
+  //const navigation = useNavigation()
+  const onPress = () => 1 + 2 // navigation.push('Post', {id: props.key})
   return (
     <View style={styles.card}>
       <View style={{flex: 2}}>

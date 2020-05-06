@@ -22,7 +22,7 @@ export default class Feed extends React.Component {
 
         <ScrollView scrollEventThrottle={16}>
           <PreviewCarousel title="Local" />
-          <PreviewCarousel title="Not Local" />
+          <PreviewCarousel title="Global" />
 
           <View style={styles.container}>
             <Text style={styles.headerTitle}>Trending</Text>

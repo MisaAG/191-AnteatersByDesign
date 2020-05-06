@@ -38,7 +38,7 @@ export default class PreviewCarousel extends React.Component {
         <View style={styles.post}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             {this.state.data.map((post, index) => {
-              return <PreviewCard key={index} image={post.image} />
+              return <PreviewCard key={post.id} image={post.image} />
             })}
           </ScrollView>
         </View>
