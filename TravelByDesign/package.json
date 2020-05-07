@@ -11,17 +11,18 @@
   },
   "dependencies": {
     "acorn": "^7.1.1",
-    "react": "^16.11.0",
-    "react-native": "^0.62.1",
+    "firebase": "^7.14.2",
+    "react": "^16.13.1",
+    "react-native": "^0.62.2",
     "react-native-image-picker": "^2.3.1",
     "react-native-snap-carousel": "^3.9.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.2",
-    "@babel/runtime": "^7.6.2",
+    "@babel/core": "^7.9.6",
+    "@babel/runtime": "^7.9.6",
     "@react-native-community/eslint-config": "^0.0.5",
     "babel-jest": "^24.9.0",
-    "eslint": "^5.0.0",
+    "eslint": "^5.16.0",
     "jest": "^24.9.0",
     "metro-react-native-babel-preset": "^0.56.0",
     "react-test-renderer": "16.9.0",
