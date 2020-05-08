@@ -31,7 +31,7 @@ import CreatePost from './src/components/Post/CreatePost';
 
 const bottomTab = createBottomTabNavigator();
 
-function AppStack() {
+function AppTabs() {
   return(
     <bottomTab.Navigator>
       <bottomTab.Screen 
@@ -50,13 +50,38 @@ function AppStack() {
   )
 }
 
+const authStack = createStackNavigator();
+
+function AuthStack() {
+  return (
+    <authStack.Navigator>
+      <authStack.Screen 
+        name='Travel By Design'
+        component={Login}
+        />
+    </authStack.Navigator>
+  )
+}
+
 
 export default function App() {
+  const isSignedIn = 0;
   return (
-    <NavigationContainer>
-      <AppStack />
-    </NavigationContainer>
+    isSignedIn ? (
+      <>
+      <NavigationContainer>
+        <AppTabs />
+      </NavigationContainer>
+      </>
+    ) : (
+      <>
+      <NavigationContainer>
+        <AuthStack />
+      </NavigationContainer>
+      </>
+    )
   );
+    
 }
 
 const styles = StyleSheet.create({
