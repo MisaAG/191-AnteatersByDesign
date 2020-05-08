@@ -93,6 +93,10 @@ function AuthStack() {
     <authStack.Navigator>
       <authStack.Screen 
         name='Travel By Design'
+        component={Login}
+        />
+      <authStack.Screen
+        name="Create Account"
         component={SignUp}
         />
     </authStack.Navigator>
