@@ -28,6 +28,7 @@ import Feed from './src/components/Feed/Feed';
 import BucketList from './src/components/BucketList/BucketList';
 import CreateBucketList from './src/components/BucketList/CreateBucketList';
 import CreatePost from './src/components/Post/CreatePost';
+import SignUp from './src/components/SignUp/SignUp';
 
 // Place Holder Screens
 Search = () =>
@@ -92,7 +93,7 @@ function AuthStack() {
     <authStack.Navigator>
       <authStack.Screen 
         name='Travel By Design'
-        component={Login}
+        component={SignUp}
         />
     </authStack.Navigator>
   )
