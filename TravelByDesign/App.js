@@ -29,9 +29,33 @@ import BucketList from './src/components/BucketList/BucketList';
 import CreateBucketList from './src/components/BucketList/CreateBucketList';
 import CreatePost from './src/components/Post/CreatePost';
 
+const bottomTab = createBottomTabNavigator();
+
+function AppStack() {
+  return(
+    <bottomTab.Navigator>
+      <bottomTab.Screen 
+        name='Feed'
+        component={Feed}
+        />
+      <bottomTab.Screen 
+        name='Post'
+        component={CreatePost}
+        />
+      <bottomTab.Screen 
+        name='Bucket List'
+        component={BucketList}
+        />
+    </bottomTab.Navigator>
+  )
+}
+
+
 export default function App() {
   return (
-    <Feed/>
+    <NavigationContainer>
+      <AppStack />
+    </NavigationContainer>
   );
 }
 
