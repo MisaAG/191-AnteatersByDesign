@@ -1,4 +1,4 @@
-
+import 'react-native-gesture-handler';
 import React from 'react';
 import {
   SafeAreaView,
@@ -9,6 +9,8 @@ import {
   TextInput,
   StatusBar,
 } from 'react-native';
+
+import { NavigationContainer } from '@react-navigation/native';
 
 import {
   Header,
@@ -25,13 +27,11 @@ import BucketList from './src/components/BucketList/BucketList';
 import CreateBucketList from './src/components/BucketList/CreateBucketList';
 import CreatePost from './src/components/Post/CreatePost';
 
-const App: () => React$Node = () => {
+export default function App() {
   return (
-    <>
-    <CreatePost />
-    </>
+    <Feed/>
   );
-};
+}
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -71,7 +71,3 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
 });
-
-
-
-export default App;
