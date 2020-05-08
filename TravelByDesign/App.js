@@ -29,14 +29,46 @@ import BucketList from './src/components/BucketList/BucketList';
 import CreateBucketList from './src/components/BucketList/CreateBucketList';
 import CreatePost from './src/components/Post/CreatePost';
 
-const bottomTab = createBottomTabNavigator();
+// Place Holder Screens
+Search = () =>
+  <>
+  <View>
+    <Text>Search</Text>
+  </View>
+  </>
 
+Profile = () =>
+  <>
+  <View style={styles.center}>
+    <Text style={styles.title}>Profile</Text>
+  </View>
+  </>
+
+EditProfile = () =>
+  <>
+  <View style={styles.center}>
+    <Text style={styles.title}>Edit Profile</Text>
+  </View>
+  </>
+
+Settings = () =>
+  <>
+  <View style={styles.center}>
+    <Text style={styles.title}>Settings</Text>
+  </View>
+  </>
+
+const bottomTab = createBottomTabNavigator();
 function AppTabs() {
   return(
     <bottomTab.Navigator>
       <bottomTab.Screen 
         name='Feed'
         component={Feed}
+        />
+      <bottomTab.Screen 
+        name='Search'
+        component={Search}
         />
       <bottomTab.Screen 
         name='Post'
@@ -46,12 +78,15 @@ function AppTabs() {
         name='Bucket List'
         component={BucketList}
         />
+      <bottomTab.Screen 
+        name='Profile'
+        component={Profile}
+        />
     </bottomTab.Navigator>
   )
 }
 
 const authStack = createStackNavigator();
-
 function AuthStack() {
   return (
     <authStack.Navigator>
@@ -63,6 +98,21 @@ function AuthStack() {
   )
 }
 
+const bucketListStack = createStackNavigator();
+function BucketListStack() {
+  return(
+    <bucketListStack.Navigator>
+      <bucketListStack.Screen 
+        name="My List"
+        component={BucketList}
+        />
+      <bucketListStack.Screen 
+        name='Create List'
+        component={CreateBucketList}
+        />
+    </bucketListStack.Navigator>
+  )
+}
 
 export default function App() {
   const isSignedIn = 0;
