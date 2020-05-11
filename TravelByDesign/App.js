@@ -24,11 +24,13 @@ import Feed from './src/components/Feed/Feed';
 import BucketList from './src/components/BucketList/BucketList';
 import CreateBucketList from './src/components/BucketList/CreateBucketList';
 import CreatePost from './src/components/Post/CreatePost';
+import UserProfile from './src/components/Profile/UserProfile';
+import Search from './src/components/Search/Search';
 
 const App: () => React$Node = () => {
   return (
     <>
-    <CreatePost />
+    <Search />
     </>
   );
 };
