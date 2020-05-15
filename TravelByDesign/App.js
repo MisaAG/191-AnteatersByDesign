@@ -13,6 +13,8 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from  '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import {
   Header,
@@ -59,29 +61,62 @@ Settings = () =>
   </View>
   </>
 
-const bottomTab = createBottomTabNavigator();
+const bottomTab = createMaterialBottomTabNavigator();
 function AppTabs() {
   return(
-    <bottomTab.Navigator>
+    <bottomTab.Navigator 
+    initialRouteName="Feed"
+    activeColor="white"
+    style={{ backgroundColor: 'light blue' }}>
       <bottomTab.Screen 
         name='Feed'
         component={Feed}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="home" color={color} size={26} />
+          ),
+        }}
         />
       <bottomTab.Screen 
         name='Search'
         component={Search}
+        options={{
+          tabBarLabel: 'Search',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name='magnify' color={color} size={26} />
+          ),
+        }}
         />
       <bottomTab.Screen 
         name='Post'
         component={CreatePost}
+        options={{
+          tabBarLabel: 'Post',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name='upload' color={color} size={26} />
+          ),
+        }}
         />
       <bottomTab.Screen 
         name='Bucket List'
         component={BucketList}
+        options={{
+          tabBarLabel: 'Bucket List',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name='compass' color={color} size={26} />
+          ),
+        }}
         />
       <bottomTab.Screen 
         name='Profile'
         component={Profile}
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name='alien' color={color} size={26} />
+          ),
+        }}
         />
     </bottomTab.Navigator>
   )
@@ -120,7 +155,7 @@ function BucketListStack() {
 }
 
 export default function App() {
-  const isSignedIn = 0;
+  const isSignedIn = 1;
   return (
     isSignedIn ? (
       <>
