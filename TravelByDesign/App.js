@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -27,10 +27,44 @@ import CreatePost from './src/components/Post/CreatePost';
 import UserProfile from './src/components/Profile/UserProfile';
 import Search from './src/components/Search/Search';
 
+import {database} from "/Users/Cherald/repo/191-AnteatersByDesign/TravelByDesign/firebaseconfig.js";
+const postsRef = database.ref('/posts');
+
 const App: () => React$Node = () => {
+  const [posts,setPosts] = useState(null);
+  const [user,setUser] = useState(
+      {
+          name: "John Doe",
+          timeStamp: "1/1/2020",
+          avatar: "./profile.jpg"
+      }
+  )
+
+  retrievePosts = async () => {
+      setPosts({name: "name"});
+      await postsRef.on('value', snapshot => {
+          const data = snapshot.val();
+          if (snapshot.val()) {
+              console.log("*****data******",data);
+              const initPosts = [];
+              Object.keys(data).forEach(post => initPosts.push(data[post]));
+              setPosts(initPosts);
+              console.log("*****initPosts*****",initPosts);
+              console.log("******posts*******",posts);
+          }
+
+      });
+      //return initPosts;
+  };
+  useEffect(() => {
+      console.log("calling useEffect");
+      retrievePosts();
+      //console.log('*****',posts);
+  },[]);
+
   return (
     <>
-    <Search />
+    <Post />
     </>
   );
 };

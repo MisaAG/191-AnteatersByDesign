@@ -1,87 +1,96 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, View, Text, FlatList, Image, SafeAreaView, Dimensions} from "react-native";
 import Carousel from 'react-native-snap-carousel';
 
 
-export default class Post extends React.Component {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            carousel : [
-                    {
-                        id: "1",
-                        text:
-                            "This is my trip to France",
-                        image: require("./pic.jpg"),
-                    },
-                    {
-                        id: "2",
-                        text:
-                            "This is my trip to France",
-                        image: require("./pic.jpg"),
-                    },
-                    {
-                        id: "3",
-                        text:
-                            "This is my trip to France",
-                        image: require("./pic.jpg"),
-                    }
-            ],
+const Post = () => {
 
-            userInfo : {
-                name: "John Doe",
-                timeStamp: "1/1/2020",
-                avatar: require("./profile.jpg")
-            }
-        }
-    }
+    // /*
+    // constructor(props){
+    //     super(props);
+    //     this.state = {
+    //         carousel :
+    //         /*
+    //         [
+    //                 {
+    //                     id: "1",
+    //                     text:
+    //                         "This is my trip to France",
+    //                     image: require("./pic.jpg"),
+    //                 },
+    //                 {
+    //                     id: "2",
+    //                     text:
+    //                         "This is my trip to France",
+    //                     image: require("./pic.jpg"),
+    //                 },
+    //                 {
+    //                     id: "3",
+    //                     text:
+    //                         "This is my trip to France",
+    //                     image: require("./pic.jpg"),
+    //                 }
+    //         ]
+    //         */,
+    //
+    //         userInfo : {
+    //             name: "John Doe",
+    //             timeStamp: "1/1/2020",
+    //             avatar: require("./profile.jpg")
+    //         }
+    //     }*/
+    //}
 
-   renderPost= ({item, index}) => {
+
+   renderPost= ({post, postid}) => {
     return (
         <View>
-            <Image source={item.image} style={styles.postImage} resizeMode="cover"/>
+            <Image source={post.picture} style={styles.postImage} resizeMode="cover"/>
             <View style={styles.feedItem}>
-            <Text style={styles.posts}>{item.text}</Text>
+            <Text style={styles.posts}>{post.description}</Text>
             </View>
         </View>
     );
-}
+    }
 
-    render() {
+    //render() {
         return(
-            <SafeAreaView style={styles.container}>
-                
-                <View style={styles.header}>
-                    <Text style={styles.headerTitle}>Post</Text>
-                </View>
-
-                <View style={styles.feedItem}>
-                <Image source={this.state.userInfo.avatar} style={styles.avatar} />
-                <View style={{flex: 1}}>
-                    <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
-                        <View>
-                            <Text style={styles.name}>{this.state.userInfo.name}</Text>
-                            <Text style={styles.name}>{this.state.userInfo.timeStamp}</Text>
-                        </View>
-                    </View>
-                </View>
-                </View>
-                
-
-            <Carousel
-              style={styles.feed}
-              ref={ ref =>  this.carousel = ref }
-              data={this.state.carousel}
-              sliderWidth={sliderWidth}
-              itemWidth={itemWidth}
-              renderItem = {this.renderPost}
-            />
-            
-            </SafeAreaView>
+            <View>
+                <Text>Hello</Text>
+            </View>
+            // <SafeAreaView style={styles.container}>
+            //
+            //     <View style={styles.header}>
+            //         <Text style={styles.headerTitle}>Post</Text>
+            //     </View>
+            //
+            //     <View style={styles.feedItem}>
+            //         <Image source={user.avatar} style={styles.avatar} />
+            //         <View style={{flex: 1}}>
+            //             <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+            //                 <View>
+            //                     <Text style={styles.name}>{user.name}</Text>
+            //                     <Text style={styles.name}>{user.timeStamp}</Text>
+            //                 </View>
+            //             </View>
+            //         </View>
+            //     </View>
+            //
+            //
+            // <Carousel
+            //   style={styles.feed}
+            //   ref={ ref => this.carousel = ref }
+            //   data={posts}
+            //   sliderWidth={sliderWidth}
+            //   itemWidth={itemWidth}
+            //   renderItem = {renderPost(posts)}
+            // />
+            //
+            // </SafeAreaView>
 
         );
-    }
+    //}
 
 }
 
@@ -148,3 +157,5 @@ const styles = StyleSheet.create({
 
 
 })
+
+export default Post;
