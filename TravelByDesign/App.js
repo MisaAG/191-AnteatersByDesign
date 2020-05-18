@@ -36,12 +36,6 @@ import SignUp from './src/components/SignUp/SignUp';
 
 // Place Holder Screens
 
-Profile = () =>
-  <>
-  <View style={styles.center}>
-    <Text style={styles.title}>Profile</Text>
-  </View>
-  </>
 
 EditProfile = () =>
   <>
@@ -105,10 +99,10 @@ function AppTabs() {
         }}
         />
       <bottomTab.Screen 
-        name='Profile'
-        component={Profile}
+        name='UserProfile'
+        component={UserProfile}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'UserProfile',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name='alien' color={color} size={26} />
           ),
