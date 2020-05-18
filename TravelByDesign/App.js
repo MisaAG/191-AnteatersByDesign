@@ -36,7 +36,6 @@ import SignUp from './src/components/SignUp/SignUp';
 
 // Place Holder Screens
 
-
 EditProfile = () =>
   <>
   <View style={styles.center}>
