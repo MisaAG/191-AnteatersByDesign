@@ -1,62 +1,41 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Image, TextInput, TouchableOpacity, Text} from "react-native";
-import {KeyboardAvoidingView} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import FormButton from '../FormButton';
+import FormInput from '../FormInput';
 
-export default class SignUp extends Component{
-    render() {
-        return(
-        <View style={styles.container}>
-        
-            <KeyboardAvoidingView style={styles.formContainer} behavior="position" enabled>
-                <TextInput 
-                placeholder= "username or email" 
-                style={styles.input}
-                  />
-                <TextInput
-                placeholder="password"
-                secureTextEntry
-                style={styles.input}
-                  />
-
-            <TouchableOpacity style={styles.buttonContainer}>
-                <Text style={styles.buttonText}>CREATE MY ACCOUNT</Text>
-            </TouchableOpacity>
-            </KeyboardAvoidingView>
-
-        </View>
-        );
-    }
+export default function SignupScreen() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Create an account</Text>
+      <FormInput
+        value={email}
+        placeholderText='Email'
+        onChangeText={userEmail => setEmail(userEmail)}
+        autoCapitalize='none'
+        keyboardType='email-address'
+        autoCorrect={false}
+      />
+      <FormInput
+        value={password}
+        placeholderText='Password'
+        onChangeText={userPassword => setPassword(userPassword)}
+        secureTextEntry={true}
+      />
+      <FormButton buttonTitle='Signup' onPress={() => alert('sign button')} />
+    </View>
+  );
 }
-
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#19b5fe',
-        padding: 20
-    },
-    logo: {
-        width: 450,
-        height: 500
-    },
-    logoContainer: {
-        alignItems: 'center',
-        flexGrow: 0.6,
-        justifyContent: 'center'
-    },
-    input: {
-        height: 40,
-        backgroundColor: 'rgba(255,255,255, 0.9)',
-        marginBottom: 20,
-        color: '#1E1E1E',
-        paddingHorizontal: 10
-    },
-    buttonContainer: {
-        backgroundColor: '#2980b9',
-        paddingVertical: 15,
-        marginBottom: 10
-    },
-    buttonText: {
-        textAlign: 'center',
-        color: '#FFFFFF'
-    }
+  container: {
+    backgroundColor: '#f5f5f5',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  text: {
+    fontSize: 24,
+    marginBottom: 10
+  }
 });

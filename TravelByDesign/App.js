@@ -111,20 +111,27 @@ function AppTabs() {
   )
 }
 
+const Stack = createStackNavigator();
+function HomeStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name='Feed' component={Feed} />
+    </Stack.Navigator>
+  );
+}
+
 const authStack = createStackNavigator();
 function AuthStack() {
   return (
-    <authStack.Navigator>
-      <authStack.Screen 
-        name='Travel By Design'
+    <Stack.Navigator initialRouteName='Login'>
+      <Stack.Screen
+        name='Login'
         component={Login}
-        />
-      <authStack.Screen
-        name="Create Account"
-        component={SignUp}
-        />
-    </authStack.Navigator>
-  )
+        options={{ header: () => null }}
+      />
+      <Stack.Screen name='Signup' component={SignUp} />
+    </Stack.Navigator>
+  );
 }
 
 const bucketListStack = createStackNavigator();
@@ -144,7 +151,7 @@ function BucketListStack() {
 }
 
 export default function App() {
-  const isSignedIn = 1;
+  const isSignedIn = 0;
   return (
     isSignedIn ? (
       <>
