@@ -1,11 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, FlatList, Image, SafeAreaView, Dimensions} from "react-native";
 import Carousel from 'react-native-snap-carousel';
 
-
+import {database} from "/Users/Cherald/repo/191-AnteatersByDesign/TravelByDesign/firebaseconfig.js";
+const postsRef = database.ref('/posts');
 
 const Post = () => {
+    const [posts,setPosts] = useState(null);
+    const [user,setUser] = useState(
+        {
+            name: "John Doe",
+            timeStamp: "1/1/2020",
+            avatar: "./profile.jpg"
+        }
+    )
 
+    retrievePosts = async () => {
+        setPosts({name: "name"});
+        await postsRef.on('value', snapshot => {
+            const data = snapshot.val();
+            // if(snapshot.val()) {
+            //console.log("*****data******",data);
+            const initPosts = [];
+            Object.keys(data).forEach(post => initPosts.push(data[post]));
+            setPosts(initPosts);
+            console.log("*****initPosts*****",initPosts);
+            console.log("******posts*******",posts);
+            // }
+        });
+        //return initPosts;
+    };
+    useEffect(() => {
+        console.log("calling useEffect");
+        retrievePosts();
+        //console.log('*****',posts);
+    },[]);
     // /*
     // constructor(props){
     //     super(props);
@@ -56,38 +85,44 @@ const Post = () => {
 
     //render() {
         return(
-            <View>
-                <Text>Hello</Text>
-            </View>
-            // <SafeAreaView style={styles.container}>
-            //
-            //     <View style={styles.header}>
-            //         <Text style={styles.headerTitle}>Post</Text>
-            //     </View>
-            //
-            //     <View style={styles.feedItem}>
-            //         <Image source={user.avatar} style={styles.avatar} />
-            //         <View style={{flex: 1}}>
-            //             <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
-            //                 <View>
-            //                     <Text style={styles.name}>{user.name}</Text>
-            //                     <Text style={styles.name}>{user.timeStamp}</Text>
-            //                 </View>
-            //             </View>
-            //         </View>
-            //     </View>
-            //
-            //
-            // <Carousel
-            //   style={styles.feed}
-            //   ref={ ref => this.carousel = ref }
-            //   data={posts}
-            //   sliderWidth={sliderWidth}
-            //   itemWidth={itemWidth}
-            //   renderItem = {renderPost(posts)}
-            // />
-            //
-            // </SafeAreaView>
+            <SafeAreaView style={styles.container}>
+                { posts === null ?
+                     (<View style={styles.header}>
+                          <Text style={styles.headerTitle}> Loading </Text>
+                      </View>
+                    ) : (
+                       <View style={styles.container}>
+                         <Text style={styles.header}>Description</Text>
+                         <Text style={styles.headerTitle}>
+                           {posts[0].description}
+                         </Text>
+                       </View>
+                    )
+                    // <Fragment>
+                    // <View style={styles.feedItem}>
+                    //     <Image source={this.state.userInfo.avatar} style={styles.avatar} />
+                    //     <View style={{flex: 1}}>
+                    //         <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+                    //             <View>
+                    //                 <Text style={styles.name}>{this.state.userInfo.name}</Text>
+                    //                 <Text style={styles.name}>{this.state.userInfo.timeStamp}</Text>
+                    //             </View>
+                    //         </View>
+                    //     </View>
+                    // </View>
+                    // </Fragment>
+
+
+                    // <Carousel
+                    //     style={styles.feed}
+                    //     ref={ ref => this.carousel = ref }
+                    //     data={posts}
+                    //     sliderWidth={sliderWidth}
+                    //     itemWidth={itemWidth}
+                    //     renderItem = {renderPost(posts)}
+                    // />
+                }
+            </SafeAreaView>
 
         );
     //}
