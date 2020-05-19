@@ -26,11 +26,12 @@ import CreateBucketList from './src/components/BucketList/CreateBucketList';
 import CreatePost from './src/components/Post/CreatePost';
 import UserProfile from './src/components/Profile/UserProfile';
 import Search from './src/components/Search/Search';
+import Results from './src/components/Search/Results';
 
 const App: () => React$Node = () => {
   return (
     <>
-    <Search />
+    <Results />
     </>
   );
 };
