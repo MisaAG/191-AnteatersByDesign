@@ -28,8 +28,6 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  if ([FIRApp defaultApp] == nil) {
-      [FIRApp configure];
   return YES;
 }
 
