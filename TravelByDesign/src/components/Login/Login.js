@@ -39,7 +39,7 @@ export default function Login({ navigation }) {
             
             <TouchableOpacity
                 style={styles.navButton}
-                 onPress={() => navigation.navigate('SignUp')}
+                 onPress={() => alert('signup button')}
             >
             <Text style={styles.navButtonText}>New user? Join here</Text>
             </TouchableOpacity>
