@@ -30,7 +30,7 @@ import Search from './src/components/Search/Search';
 const App: () => React$Node = () => {
   return (
     <>
-    <Post />
+    <Feed />
     </>
   );
 };

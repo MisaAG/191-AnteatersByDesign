@@ -1,101 +1,206 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Text, FlatList, Image} from "react-native";
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, Text, FlatList, Image, SafeAreaView, Dimensions} from "react-native";
+import Carousel from 'react-native-snap-carousel';
 
-//const DEVICE_WIDTH = Dimensions.get("window").width;
+import {database} from "../../../firebaseconfig.js";
+const postsRef = database.ref('/posts');
 
-//Array of dummy posts used to simulate a post
-var posts = [
-    {
-        id: "1",
-        name: "Joe McKay",
-        text:
-            "This is my trip to Bali",
-        avatar: require("./profile.jpg"),
-        image: require("./pic.jpg"),
-        timeStamp: "1/1/2020"
-    },
-    {
-        id: "1",
-        name: "Joe McKay",
-        text:
-            "This is my trip to Bali",
-        avatar: require("./profile.jpg"),
-        image: require("./pic.jpg"),
-        timeStamp: "1/1/2020"
-    },
-    {
-        id: "1",
-        name: "Joe McKay",
-        text:
-            "This is my trip to Bali",
-        avatar: require("./profile.jpg"),
-        image: require("./pic.jpg"),
-        timeStamp: "1/1/2020"
-    }
-]
+const Post = () => {
+    const [posts,setPosts] = useState(null);
+    const [isLoading,setLoading] = useState(true);
+    const [user,setUser] = useState(
+        {
+            name: "John Doe",
+            timeStamp: "1/1/2020",
+            avatar: "./profile.jpg"
+        }
+    )
 
-class Carousel extends React.Component {
-    scrollRef = React.createRef();
-    constructor(props) {
-        super(props);
-        this.state = {
-            selectedIndex: 0
-        };
-    }
-    renderPost = post => {
-        return(
-            <View >
-                <Image source={post.avatar} />
-                <View style={{flex: 1}}>
-                    <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
-                        <View>
-                            <Text >{post.name}</Text>
-                            <Text >{post.timeStamp}</Text>
-                        </View>
-                    </View>
-
-                    <Image source={post.image} resizeMode="cover"/>
-                    <Text >{post.text}</Text>
-                </View>
-            </View>
-        );
+    retrievePosts = async () => {
+        // setPosts({name: "name"});
+        const initPosts = [];
+        await postsRef.on('value', snapshot => {
+            const data = snapshot.val();
+            // if(snapshot.val()) {
+            //console.log("*****data******",data);
+            Object.keys(data).forEach(post => initPosts.push(data[post]));
+            console.log("*****initPosts*****",initPosts);
+            setPosts(initPosts);
+            setLoading(false);
+            console.log("******posts*******",posts);
+            // }
+        });
+        //return initPosts;
     };
+    useEffect(() => {
+        console.log("calling useEffect");
+        retrievePosts();
+        //console.log('*****',posts);
+    },[]);
+    // /*
+    // constructor(props){
+    //     super(props);
+    //     this.state = {
+    //         carousel :
+    //         /*
+    //         [
+    //                 {
+    //                     id: "1",
+    //                     text:
+    //                         "This is my trip to France",
+    //                     image: require("./pic.jpg"),
+    //                 },
+    //                 {
+    //                     id: "2",
+    //                     text:
+    //                         "This is my trip to France",
+    //                     image: require("./pic.jpg"),
+    //                 },
+    //                 {
+    //                     id: "3",
+    //                     text:
+    //                         "This is my trip to France",
+    //                     image: require("./pic.jpg"),
+    //                 }
+    //         ]
+    //         */,
+    //
+    //         userInfo : {
+    //             name: "John Doe",
+    //             timeStamp: "1/1/2020",
+    //             avatar: require("./profile.jpg")
+    //         }
+    //     }*/
+    //}
 
-    render() {
-        //const {images} = this.props
-        const {selectedIndex} = this.state
-        return (
-            <View style={{height: "100%", width: "100%"}}>
-                <ScrollView horizontal pagingEnabled>
-                    {posts.map(post => (
-                        <FlatList
-                            data={posts}
-                            renderItem={({item}) => this.renderPost(item)}
-                            keyExtractor={item => item.id}
-                            showsHorizontalScrollIndicator={false}
-                         />
-                    ))}
-                  /*
-                    {images.map(image => (
-                        <Image
-                            key={image}
-                            source={{uri:image}}
-                            style={styles.backgroundImage}
-                        />
-                    ))}
-                    */
-                </ScrollView>
+
+   renderPost= ({item, index}) => {
+    return (
+        <View>
+            <Image source={item.picture} style={styles.postImage} resizeMode="cover"/>
+            <View style={styles.feedItem}>
+            <Text style={styles.posts}>{item.description}</Text>
             </View>
-        );
+        </View>
+    );
     }
+
+    //render() {
+        return(
+            <SafeAreaView style={styles.container}>
+                { isLoading ?
+                     (<View style={styles.header}>
+                          <Text style={styles.headerTitle}> Loading </Text>
+                      </View>
+                    ) : (
+                       // <View style={styles.container}>
+                       //   <Text style={styles.header}>Description</Text>
+                       //   <Text style={styles.headerTitle}>
+                       //     {posts[0].picture}
+                       //   </Text>
+                       // </View>
+                       <Carousel
+                           style={styles.feed}
+                           // ref={ ref => this.carousel = ref }
+                           data={posts}
+                           sliderWidth={sliderWidth}
+                           itemWidth={itemWidth}
+                           renderItem = {this.renderPost}
+                       />
+                    )
+                    // <Fragment>
+                    // <View style={styles.feedItem}>
+                    //     <Image source={this.state.userInfo.avatar} style={styles.avatar} />
+                    //     <View style={{flex: 1}}>
+                    //         <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+                    //             <View>
+                    //                 <Text style={styles.name}>{this.state.userInfo.name}</Text>
+                    //                 <Text style={styles.name}>{this.state.userInfo.timeStamp}</Text>
+                    //             </View>
+                    //         </View>
+                    //     </View>
+                    // </View>
+                    // </Fragment>
+
+
+                    // <Carousel
+                    //     style={styles.feed}
+                    //     ref={ ref => this.carousel = ref }
+                    //     data={posts}
+                    //     sliderWidth={sliderWidth}
+                    //     itemWidth={itemWidth}
+                    //     renderItem = {renderPost(posts)}
+                    // />
+                }
+            </SafeAreaView>
+
+        );
+    //}
+
 }
 
+const horizontalMargin = 20;
+const slideWidth = 280;
+
+const sliderWidth = Dimensions.get('window').width;
+const itemWidth = slideWidth + horizontalMargin * 2;
 
 const styles = StyleSheet.create({
-    backgroundImage: {
-        height: "50%"
-    },
     container: {
-        backgroundColor: "white"
+        flex: 1,
+        backgroundColor: "#EFECF4",
+    },
+    header: {
+        paddingTop: 44,
+        paddingBottom: 16,
+        backgroundColor: "#FFF",
+        alignItems: "center",
+        justifyContent: "center",
+        borderBottomWidth: 1,
+        borderBottomColor: "#EBECF4"
+    },
+    headerTitle: {
+        fontSize: 20,
+        fontWeight: "500"
+    },
+    feed: {
+        marginHorizontal: 16
+    },
+    feedItem: {
+        backgroundColor: "#FFF",
+        borderRadius: 5,
+        padding: 8,
+        flexDirection: "row",
+        marginVertical: 8
+    },
+    avatar: {
+        width: 36,
+        height: 36,
+        borderRadius: 18,
+        marginRight: 16
+    },
+    name: {
+        fontSize: 15,
+        fontWeight: "500",
+        color: "#454D65"
+    },
+    timeStamp: {
+        fontSize: 11,
+        color: "#454D65",
+        marginRight: 4
+    },
+    post: {
+        marginTop: 16,
+        fontSize: 14,
+        color: "#454D65"
+    },
+    postImage: {
+        width: undefined,
+        height: 350,
+        marginVertical: 16
     }
+
+
 })
+
+export default Post;
