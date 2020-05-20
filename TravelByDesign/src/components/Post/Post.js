@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, FlatList, Image, SafeAreaView, Dimensions} from "react-native";
 import Carousel from 'react-native-snap-carousel';
 
-import {database} from "/Users/Cherald/repo/191-AnteatersByDesign/TravelByDesign/firebaseconfig.js";
+import {database} from "../../../firebaseconfig.js";
 const postsRef = database.ref('/posts');
 
 const Post = () => {
     const [posts,setPosts] = useState(null);
+    const [isLoading,setLoading] = useState(true);
     const [user,setUser] = useState(
         {
             name: "John Doe",
@@ -16,15 +17,16 @@ const Post = () => {
     )
 
     retrievePosts = async () => {
-        setPosts({name: "name"});
+        // setPosts({name: "name"});
+        const initPosts = [];
         await postsRef.on('value', snapshot => {
             const data = snapshot.val();
             // if(snapshot.val()) {
             //console.log("*****data******",data);
-            const initPosts = [];
             Object.keys(data).forEach(post => initPosts.push(data[post]));
-            setPosts(initPosts);
             console.log("*****initPosts*****",initPosts);
+            setPosts(initPosts);
+            setLoading(false);
             console.log("******posts*******",posts);
             // }
         });
@@ -72,12 +74,12 @@ const Post = () => {
     //}
 
 
-   renderPost= ({post, postid}) => {
+   renderPost= ({item, index}) => {
     return (
         <View>
-            <Image source={post.picture} style={styles.postImage} resizeMode="cover"/>
+            <Image source={item.picture} style={styles.postImage} resizeMode="cover"/>
             <View style={styles.feedItem}>
-            <Text style={styles.posts}>{post.description}</Text>
+            <Text style={styles.posts}>{item.description}</Text>
             </View>
         </View>
     );
@@ -86,17 +88,25 @@ const Post = () => {
     //render() {
         return(
             <SafeAreaView style={styles.container}>
-                { posts === null ?
+                { isLoading ?
                      (<View style={styles.header}>
                           <Text style={styles.headerTitle}> Loading </Text>
                       </View>
                     ) : (
-                       <View style={styles.container}>
-                         <Text style={styles.header}>Description</Text>
-                         <Text style={styles.headerTitle}>
-                           {posts[0].description}
-                         </Text>
-                       </View>
+                       // <View style={styles.container}>
+                       //   <Text style={styles.header}>Description</Text>
+                       //   <Text style={styles.headerTitle}>
+                       //     {posts[0].picture}
+                       //   </Text>
+                       // </View>
+                       <Carousel
+                           style={styles.feed}
+                           // ref={ ref => this.carousel = ref }
+                           data={posts}
+                           sliderWidth={sliderWidth}
+                           itemWidth={itemWidth}
+                           renderItem = {this.renderPost}
+                       />
                     )
                     // <Fragment>
                     // <View style={styles.feedItem}>
