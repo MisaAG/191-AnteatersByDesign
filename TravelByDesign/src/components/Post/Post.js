@@ -4,6 +4,8 @@ import Carousel from 'react-native-snap-carousel';
 
 import {database} from "../../../firebaseconfig.js";
 const postsRef = database.ref('/posts');
+import {images} from "../../../pictureindex.js";
+
 
 const Post = () => {
     const [posts,setPosts] = useState(null);
@@ -12,7 +14,7 @@ const Post = () => {
         {
             name: "John Doe",
             timeStamp: "1/1/2020",
-            avatar: "./profile.jpg"
+            avatar: require("./profile.jpg")
         }
     )
 
@@ -77,9 +79,9 @@ const Post = () => {
    renderPost= ({item, index}) => {
     return (
         <View>
-            <Image source={item.picture} style={styles.postImage} resizeMode="cover"/>
+            <Image source={images[item.pictureCollection[0].picture]} style={styles.postImage} resizeMode="cover"/>
             <View style={styles.feedItem}>
-            <Text style={styles.posts}>{item.description}</Text>
+            <Text style={styles.posts}>{item.pictureCollection[0].caption}</Text>
             </View>
         </View>
     );
@@ -88,17 +90,28 @@ const Post = () => {
     //render() {
         return(
             <SafeAreaView style={styles.container}>
+                <View style={styles.header}>
+                    <Text style={styles.headerTitle}> Post </Text>
+                </View>
+
+                <View style={styles.feedItem}>
+                    <Image source={user.avatar} style={styles.avatar} />
+                    <View style={{flex: 1}}>
+                        <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+                            <View>
+                                <Text style={styles.name}>{user.name}</Text>
+                                <Text style={styles.name}>{user.timeStamp}</Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+
                 { isLoading ?
                      (<View style={styles.header}>
                           <Text style={styles.headerTitle}> Loading </Text>
                       </View>
                     ) : (
-                       // <View style={styles.container}>
-                       //   <Text style={styles.header}>Description</Text>
-                       //   <Text style={styles.headerTitle}>
-                       //     {posts[0].picture}
-                       //   </Text>
-                       // </View>
+
                        <Carousel
                            style={styles.feed}
                            // ref={ ref => this.carousel = ref }
@@ -108,29 +121,6 @@ const Post = () => {
                            renderItem = {this.renderPost}
                        />
                     )
-                    // <Fragment>
-                    // <View style={styles.feedItem}>
-                    //     <Image source={this.state.userInfo.avatar} style={styles.avatar} />
-                    //     <View style={{flex: 1}}>
-                    //         <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
-                    //             <View>
-                    //                 <Text style={styles.name}>{this.state.userInfo.name}</Text>
-                    //                 <Text style={styles.name}>{this.state.userInfo.timeStamp}</Text>
-                    //             </View>
-                    //         </View>
-                    //     </View>
-                    // </View>
-                    // </Fragment>
-
-
-                    // <Carousel
-                    //     style={styles.feed}
-                    //     ref={ ref => this.carousel = ref }
-                    //     data={posts}
-                    //     sliderWidth={sliderWidth}
-                    //     itemWidth={itemWidth}
-                    //     renderItem = {renderPost(posts)}
-                    // />
                 }
             </SafeAreaView>
 
