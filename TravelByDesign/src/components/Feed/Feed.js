@@ -1,12 +1,12 @@
 import React, { Component,useEffect, useState } from 'react';
-import { StyleSheet, View, Text, FlatList, Image, ScrollView, SafeAreaView, Dimensions} from "react-native";
+import { StyleSheet, View, Text, FlatList, Image, ScrollView, SafeAreaView, Dimensions, TouchableOpacity} from "react-native";
 import Carousel from 'react-native-snap-carousel';
 
 import {images} from "../../../pictureindex.js";
 import {database} from "../../../firebaseconfig.js";
 const postsRef = database.ref('/posts');
 
-const Feed = () => {
+const Feed = ({navigation}) => {
     const [posts,setPosts] = useState(null);
     const [isLoading,setLoading] = useState(true);
 
@@ -38,14 +38,18 @@ const Feed = () => {
     // var splitPicture = picturePath.split("/");
     // var getName = splitPicture[splitPicture.length - 1].split(".")[0];
 
-    return (
-        <View>
-            <Image source={images[item.pictureCollection[0].picture]} style={styles.postImage} resizeMode="cover"/>
-            <View style={styles.feedItem}>
-            <Text >{item.title}</Text>
+        return (
+            <View>
+                <TouchableOpacity onPress ={ () =>
+                    navigation.navigate('Post',{posts: item.pictureCollection})
+                }>
+                    <Image source={images[item.pictureCollection[0].picture]} style={styles.postImage} resizeMode="cover"/>
+                </TouchableOpacity>
+                <View style={styles.feedItem}>
+                <Text >{item.title}</Text>
+                </View>
             </View>
-        </View>
-    );
+        );
     }
 
     //render() {

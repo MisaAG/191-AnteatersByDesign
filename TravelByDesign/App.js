@@ -53,13 +53,13 @@ Settings = () =>
 const bottomTab = createMaterialBottomTabNavigator();
 function AppTabs() {
   return(
-    <bottomTab.Navigator 
+    <bottomTab.Navigator
     initialRouteName="Feed"
     activeColor="white"
     style={{ backgroundColor: 'light blue' }}>
-      <bottomTab.Screen 
+      <bottomTab.Screen
         name='Feed'
-        component={Feed}
+        component={HomeStack}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
@@ -67,7 +67,7 @@ function AppTabs() {
           ),
         }}
         />
-      <bottomTab.Screen 
+      <bottomTab.Screen
         name='Search'
         component={Search}
         options={{
@@ -77,17 +77,17 @@ function AppTabs() {
           ),
         }}
         />
-      <bottomTab.Screen 
-        name='Post'
+      <bottomTab.Screen
+        name='CreatePost'
         component={CreatePost}
         options={{
-          tabBarLabel: 'Post',
+          tabBarLabel: 'Make a Post',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name='upload' color={color} size={26} />
           ),
         }}
         />
-      <bottomTab.Screen 
+      <bottomTab.Screen
         name='Bucket List'
         component={BucketList}
         options={{
@@ -97,7 +97,7 @@ function AppTabs() {
           ),
         }}
         />
-      <bottomTab.Screen 
+      <bottomTab.Screen
         name='UserProfile'
         component={UserProfile}
         options={{
@@ -116,6 +116,7 @@ function HomeStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen name='Feed' component={Feed} />
+      <Stack.Screen name='Post' component={Post} />
     </Stack.Navigator>
   );
 }
@@ -138,11 +139,11 @@ const bucketListStack = createStackNavigator();
 function BucketListStack() {
   return(
     <bucketListStack.Navigator>
-      <bucketListStack.Screen 
+      <bucketListStack.Screen
         name="My List"
         component={BucketList}
         />
-      <bucketListStack.Screen 
+      <bucketListStack.Screen
         name='Create List'
         component={CreateBucketList}
         />
@@ -151,7 +152,7 @@ function BucketListStack() {
 }
 
 export default function App() {
-  const isSignedIn = 0;
+  const isSignedIn = 1;
   return (
     isSignedIn ? (
       <>
@@ -167,7 +168,7 @@ export default function App() {
       </>
     )
   );
-    
+
 }
 
 const styles = StyleSheet.create({

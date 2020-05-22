@@ -7,8 +7,9 @@ const postsRef = database.ref('/posts');
 import {images} from "../../../pictureindex.js";
 
 
-const Post = () => {
-    const [posts,setPosts] = useState(null);
+const Post = ({route, navigation}) => {
+    const {posts} = route.params;
+    // const [posts,setPosts] = useState(null);
     const [isLoading,setLoading] = useState(true);
     const [user,setUser] = useState(
         {
@@ -34,11 +35,11 @@ const Post = () => {
         });
         //return initPosts;
     };
-    useEffect(() => {
-        console.log("calling useEffect");
-        retrievePosts();
+    // useEffect(() => {
+    //     console.log("calling useEffect");
+    //     retrievePosts();
         //console.log('*****',posts);
-    },[]);
+    // },[]);
     // /*
     // constructor(props){
     //     super(props);
@@ -79,9 +80,9 @@ const Post = () => {
    renderPost= ({item, index}) => {
     return (
         <View>
-            <Image source={images[item.pictureCollection[0].picture]} style={styles.postImage} resizeMode="cover"/>
+            <Image source={images[item.picture]} style={styles.postImage} resizeMode="cover"/>
             <View style={styles.feedItem}>
-            <Text style={styles.posts}>{item.pictureCollection[0].caption}</Text>
+            <Text style={styles.posts}>{item.caption}</Text>
             </View>
         </View>
     );
@@ -105,23 +106,14 @@ const Post = () => {
                         </View>
                     </View>
                 </View>
-
-                { isLoading ?
-                     (<View style={styles.header}>
-                          <Text style={styles.headerTitle}> Loading </Text>
-                      </View>
-                    ) : (
-
-                       <Carousel
-                           style={styles.feed}
-                           // ref={ ref => this.carousel = ref }
-                           data={posts}
-                           sliderWidth={sliderWidth}
-                           itemWidth={itemWidth}
-                           renderItem = {this.renderPost}
-                       />
-                    )
-                }
+                <Carousel
+                    style={styles.feed}
+                    // ref={ ref => this.carousel = ref }
+                    data={posts}
+                    sliderWidth={sliderWidth}
+                    itemWidth={itemWidth}
+                    renderItem = {this.renderPost}
+                />
             </SafeAreaView>
 
         );
