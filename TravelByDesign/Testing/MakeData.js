@@ -101,19 +101,18 @@ function getCommand() {
     }
     */
     var carousel = [
-      { picture: 'bali',
-        caption: "Visited a beatiful beach in Bali and I thought I wanna share!" }
+      { picture: 'sushi',
+        caption: "Treating myself to sushi for my birthday" }
     ];
     var tags = [
-      "solotravel",
-      "adventure",
+      "foodie",
       "luxury"
     ];
     getUsers();
     setTimeout(
       function() {
           console.log("timer complete, executing writeNewPost");
-          writeNewPost(userDocs["-M6k9nHgNn8nOLJE9NhW"], "Bali Adventure", carousel, "Bali",tags);
+          writeNewPost(userDocs["-M6k9nHgNn8nOLJE9NhW"], "Splurging on Sushi", carousel, "San Francisco",tags);
           console.log("post written");
       }
       , 3000);
