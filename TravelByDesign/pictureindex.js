@@ -8,6 +8,7 @@ const images = {
     academysciencediver : require("./asset/academysciencediver.jpg"),
     downtown : require("./asset/downtown.jpg"),
     chinatown : require("./asset/chinatown.jpg"),
-    salesforce : require("./asset/salesforce.jpg")
+    salesforce : require("./asset/salesforce.jpg"),
+    sushi : require("./asset/sushi.jpg")
 }
 export {images};
