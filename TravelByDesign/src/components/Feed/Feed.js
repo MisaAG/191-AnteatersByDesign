@@ -41,7 +41,7 @@ const Feed = ({navigation}) => {
         return (
             <View>
                 <TouchableOpacity onPress ={ () =>
-                    navigation.navigate('Post',{posts: item.pictureCollection})
+                    navigation.navigate('Post',{posts: item.pictureCollection, userid: item.userid, location: item.location, tags: item.tags})
                 }>
                     <Image source={images[item.pictureCollection[0].picture]} style={styles.postImage} resizeMode="cover"/>
                 </TouchableOpacity>

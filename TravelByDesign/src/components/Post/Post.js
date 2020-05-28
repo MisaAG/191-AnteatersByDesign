@@ -3,43 +3,45 @@ import { StyleSheet, View, Text, FlatList, Image, SafeAreaView, Dimensions} from
 import Carousel from 'react-native-snap-carousel';
 
 import {database} from "../../../firebaseconfig.js";
-const postsRef = database.ref('/posts');
 import {images} from "../../../pictureindex.js";
 
 
 const Post = ({route, navigation}) => {
     const {posts} = route.params;
+    const {userid} = route.params;
+    const {location} = route.params;
+    const {tags} = route.params;
     // const [posts,setPosts] = useState(null);
     const [isLoading,setLoading] = useState(true);
-    const [user,setUser] = useState(
-        {
-            name: "John Doe",
-            timeStamp: "1/1/2020",
-            avatar: require("./profile.jpg")
-        }
-    )
+    const [user,setUser] = useState(null)
 
-    retrievePosts = async () => {
+    retrieveUser = async () => {
         // setPosts({name: "name"});
-        const initPosts = [];
+        const postsRef = database.ref('/users');
+        // const initPosts = [];
         await postsRef.on('value', snapshot => {
             const data = snapshot.val();
+            // console.log(data);
+            initUser = data[userid];
+            console.log("***inituser***",initUser)
+            setUser(initUser);
             // if(snapshot.val()) {
             //console.log("*****data******",data);
-            Object.keys(data).forEach(post => initPosts.push(data[post]));
-            console.log("*****initPosts*****",initPosts);
-            setPosts(initPosts);
+            // Object.keys(data).forEach(post => initPosts.push(data[post]));
+            // console.log("*****initPosts*****",initPosts);
+            // setPosts(initPosts);
             setLoading(false);
-            console.log("******posts*******",posts);
+            // console.log("******posts*******",posts);
             // }
         });
         //return initPosts;
     };
-    // useEffect(() => {
-    //     console.log("calling useEffect");
-    //     retrievePosts();
-        //console.log('*****',posts);
-    // },[]);
+    useEffect(() => {
+        console.log("calling useEffect");
+        retrieveUser();
+        // console.log("***tags***",tags)
+        // console.log('*****',posts);
+    },[]);
     // /*
     // constructor(props){
     //     super(props);
@@ -91,21 +93,17 @@ const Post = ({route, navigation}) => {
     //render() {
         return(
             <SafeAreaView style={styles.container}>
-                <View style={styles.header}>
-                    <Text style={styles.headerTitle}> Post </Text>
-                </View>
-
-                <View style={styles.feedItem}>
-                    <Image source={user.avatar} style={styles.avatar} />
-                    <View style={{flex: 1}}>
-                        <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
-                            <View>
-                                <Text style={styles.name}>{user.name}</Text>
-                                <Text style={styles.name}>{user.timeStamp}</Text>
-                            </View>
-                        </View>
-                    </View>
-                </View>
+                {isLoading ?
+                  <View style={styles.header}>
+                      <Text style={styles.headerTitle}> Loading </Text>
+                  </View> :
+                  <View style={styles.feedItem}>
+                      <View style={{flex: 1}}>
+                          <Text style= {styles.name}>{user.firstname} {user.lastname}</Text>
+                          <Text style= {styles.timeStamp}>{location}</Text>
+                      </View>
+                  </View>
+                }
                 <Carousel
                     style={styles.feed}
                     // ref={ ref => this.carousel = ref }
@@ -114,6 +112,15 @@ const Post = ({route, navigation}) => {
                     itemWidth={itemWidth}
                     renderItem = {this.renderPost}
                 />
+                <View style= {styles.feedItem}>
+                    <Text style = {styles.headerTitle}>Tags: </Text>
+                    <FlatList
+                        data={tags}
+                        renderItem= {({item}) => (
+                          <Text style={styles.name}> {item} </Text>
+                        )}
+                    />
+                </View>
             </SafeAreaView>
 
         );
@@ -162,12 +169,12 @@ const styles = StyleSheet.create({
         marginRight: 16
     },
     name: {
-        fontSize: 15,
+        fontSize: 20,
         fontWeight: "500",
         color: "#454D65"
     },
     timeStamp: {
-        fontSize: 11,
+        fontSize: 15,
         color: "#454D65",
         marginRight: 4
     },
