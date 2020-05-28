@@ -1,9 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { StyleSheet, View, Image, TextInput, TouchableOpacity, Text} from "react-native";
 import {KeyboardAvoidingView} from 'react-native';
 
-export default class Login extends Component{
-    render() {
+import FormButton from '../FormButton';
+import FormInput from '../FormInput';
+
+import SignUp from '../SignUp/SignUp';
+
+export default function Login({ navigation }) {
+
+        const [email, setEmail] = useState('');
+        const [password, setPassword] = useState('');
         return(
         <View style={styles.container}>
             <View style={styles.logoContainer}>
@@ -14,34 +21,40 @@ export default class Login extends Component{
             </View>
         
             <KeyboardAvoidingView style={styles.formContainer} behavior="position" enabled>
-                <TextInput 
-                placeholder= "username or email" 
-                style={styles.input}
-                  />
-                <TextInput
-                placeholder="password"
-                secureTextEntry
-                style={styles.input}
-                  />
-
-            <TouchableOpacity style={styles.buttonContainer}>
-                <Text style={styles.buttonText}>LOGIN</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonContainer}>
-                <Text style={styles.buttonText}>SIGN UP</Text>
+            <FormInput
+                value={email}
+                placeholderText='Email'
+                onChangeText={userEmail => setEmail(userEmail)}
+                autoCapitalize='none'
+                keyboardType='email-address'
+                autoCorrect={false}
+            />
+            <FormInput
+                value={password}
+                placeholderText='Password'
+                onChangeText={userPassword => setPassword(userPassword)}
+                secureTextEntry={true}
+            />
+            <FormButton buttonTitle='Login' onPress={() => alert('login button')} />
+            
+            <TouchableOpacity
+                style={styles.navButton}
+                 onPress={() => alert('signup button')}
+            >
+            <Text style={styles.navButtonText}>New user? Join here</Text>
             </TouchableOpacity>
             </KeyboardAvoidingView>
 
         </View>
         );
-    }
 }
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: '#f5f5f5',
         flex: 1,
-        backgroundColor: '#19b5fe',
-        padding: 20
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     logo: {
         width: 450,
@@ -67,5 +80,16 @@ const styles = StyleSheet.create({
     buttonText: {
         textAlign: 'center',
         color: '#FFFFFF'
-    }
+    },
+    text: {
+        fontSize: 24,
+        marginBottom: 10
+      },
+      navButton: {
+        marginTop: 15
+      },
+      navButtonText: {
+        fontSize: 20,
+        color: '#6646ee'
+      }
 });
