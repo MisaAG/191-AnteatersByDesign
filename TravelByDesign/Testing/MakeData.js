@@ -1,4 +1,5 @@
-//import {getDatabase} from './firebasesetup.mjs';
+//import {database} from '../firebaseconfig.js';
+
 const firebase = require("firebase/app");
 const readline = require("readline");
 
@@ -20,10 +21,18 @@ firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 
 console.log("database setup complete");
+
 var userDocs = {}; //stores data fetched from firebase
 var userFetched = false;
 
-function getUsers() {
+async function getUsers() {
+    // const usersRef = database.ref('/users');
+    // await postsRef.on('value', snapshot => {
+    //     const data = snapshot.val();
+    //     Object.keys(data).forEach(user => userDocs[user.key] = user.val());
+    //     console.log("user fetch complete");
+    //     userFetched = true;
+    // });
     var query = database.ref("users").orderByKey();
     query.once("value")
       .then(function(snapshot) {
@@ -59,16 +68,16 @@ function writeNewUser(firstName, lastName, userEmail, userLocation, userPassword
 
         return database.ref().update(updates);
 }
-function writeNewPost(user, postTitle, postPicture, caption, postLocation) {
+function writeNewPost(user, postTitle, carouselList, postLocation, tagList) {
     if(userFetched == true) {
         var newPostKey = database.ref().child('posts').push().key;
         var postData = {
             postid: newPostKey,
             userid: user.userid,
             title: postTitle,
-            description: caption,
+            pictureCollection: carouselList,
+            tags: tagList,
             location: postLocation,
-            picture: postPicture
         }
         var updates = {};
         updates['/posts/' + newPostKey] = postData;
@@ -76,12 +85,11 @@ function writeNewPost(user, postTitle, postPicture, caption, postLocation) {
         return database.ref().update(updates);
     }
     else {
-      console.log("1");
+      console.log("userFetched not true");
     }
 }
 
 function getCommand() {
-    getUsers();
     /*
     var user = {
         userid: "-M6g0qovjBa4gMAcHpFl",
@@ -92,14 +100,23 @@ function getCommand() {
         password: "12345"
     }
     */
+    var carousel = [
+      { picture: 'sushi',
+        caption: "Treating myself to sushi for my birthday" }
+    ];
+    var tags = [
+      "foodie",
+      "luxury"
+    ];
+    getUsers();
     setTimeout(
       function() {
           console.log("timer complete, executing writeNewPost");
-          writeNewPost(userDocs["-M6g3oCP_ZCZ4pkzKYK4"], "Trip to Bali", './bali.jpg', "my first trip to bali", "Bali, Indonesia");
+          writeNewPost(userDocs["-M6k9nHgNn8nOLJE9NhW"], "Splurging on Sushi", carousel, "San Francisco",tags);
+          console.log("post written");
       }
-      , 1000);
-    writeNewUser("Foo", "Bar", "foob@gmail.com", "New York", "12345");
-
+      , 3000);
+    //writeNewUser("Foo", "Bar", "foob@gmail.com", "New York", "12345");
     //getDatabase();
     //while(true) {
         //write post not implemented yet

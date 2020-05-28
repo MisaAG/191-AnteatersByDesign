@@ -1,87 +1,130 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, FlatList, Image, SafeAreaView, Dimensions} from "react-native";
 import Carousel from 'react-native-snap-carousel';
 
+import {database} from "../../../firebaseconfig.js";
+import {images} from "../../../pictureindex.js";
 
-export default class Post extends React.Component {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            carousel : [
-                    {
-                        id: "1",
-                        text:
-                            "This is my trip to France",
-                        image: require("./pic.jpg"),
-                    },
-                    {
-                        id: "2",
-                        text:
-                            "This is my trip to France",
-                        image: require("./pic.jpg"),
-                    },
-                    {
-                        id: "3",
-                        text:
-                            "This is my trip to France",
-                        image: require("./pic.jpg"),
-                    }
-            ],
+const Post = ({route, navigation}) => {
+    const {posts} = route.params;
+    const {userid} = route.params;
+    const {location} = route.params;
+    const {tags} = route.params;
+    // const [posts,setPosts] = useState(null);
+    const [isLoading,setLoading] = useState(true);
+    const [user,setUser] = useState(null)
 
-            userInfo : {
-                name: "John Doe",
-                timeStamp: "1/1/2020",
-                avatar: require("./profile.jpg")
-            }
-        }
-    }
+    retrieveUser = async () => {
+        // setPosts({name: "name"});
+        const postsRef = database.ref('/users');
+        // const initPosts = [];
+        await postsRef.on('value', snapshot => {
+            const data = snapshot.val();
+            // console.log(data);
+            initUser = data[userid];
+            console.log("***inituser***",initUser)
+            setUser(initUser);
+            // if(snapshot.val()) {
+            //console.log("*****data******",data);
+            // Object.keys(data).forEach(post => initPosts.push(data[post]));
+            // console.log("*****initPosts*****",initPosts);
+            // setPosts(initPosts);
+            setLoading(false);
+            // console.log("******posts*******",posts);
+            // }
+        });
+        //return initPosts;
+    };
+    useEffect(() => {
+        console.log("calling useEffect");
+        retrieveUser();
+        // console.log("***tags***",tags)
+        // console.log('*****',posts);
+    },[]);
+    // /*
+    // constructor(props){
+    //     super(props);
+    //     this.state = {
+    //         carousel :
+    //         /*
+    //         [
+    //                 {
+    //                     id: "1",
+    //                     text:
+    //                         "This is my trip to France",
+    //                     image: require("./pic.jpg"),
+    //                 },
+    //                 {
+    //                     id: "2",
+    //                     text:
+    //                         "This is my trip to France",
+    //                     image: require("./pic.jpg"),
+    //                 },
+    //                 {
+    //                     id: "3",
+    //                     text:
+    //                         "This is my trip to France",
+    //                     image: require("./pic.jpg"),
+    //                 }
+    //         ]
+    //         */,
+    //
+    //         userInfo : {
+    //             name: "John Doe",
+    //             timeStamp: "1/1/2020",
+    //             avatar: require("./profile.jpg")
+    //         }
+    //     }*/
+    //}
+
 
    renderPost= ({item, index}) => {
     return (
         <View>
-            <Image source={item.image} style={styles.postImage} resizeMode="cover"/>
+            <Image source={images[item.picture]} style={styles.postImage} resizeMode="cover"/>
             <View style={styles.feedItem}>
-            <Text style={styles.posts}>{item.text}</Text>
+            <Text style={styles.posts}>{item.caption}</Text>
             </View>
         </View>
     );
-}
+    }
 
-    render() {
+    //render() {
         return(
             <SafeAreaView style={styles.container}>
-                
-                <View style={styles.header}>
-                    <Text style={styles.headerTitle}>Post</Text>
+                {isLoading ?
+                  <View style={styles.header}>
+                      <Text style={styles.headerTitle}> Loading </Text>
+                  </View> :
+                  <View style={styles.feedItem}>
+                      <View style={{flex: 1}}>
+                          <Text style= {styles.name}>{user.firstname} {user.lastname}</Text>
+                          <Text style= {styles.timeStamp}>{location}</Text>
+                      </View>
+                  </View>
+                }
+                <Carousel
+                    style={styles.feed}
+                    // ref={ ref => this.carousel = ref }
+                    data={posts}
+                    sliderWidth={sliderWidth}
+                    itemWidth={itemWidth}
+                    renderItem = {this.renderPost}
+                />
+                <View style= {styles.feedItem}>
+                    <Text style = {styles.headerTitle}>Tags: </Text>
+                    <FlatList
+                        data={tags}
+                        renderItem= {({item}) => (
+                          <Text style={styles.name}> {item} </Text>
+                        )}
+                    />
                 </View>
-
-                <View style={styles.feedItem}>
-                <Image source={this.state.userInfo.avatar} style={styles.avatar} />
-                <View style={{flex: 1}}>
-                    <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
-                        <View>
-                            <Text style={styles.name}>{this.state.userInfo.name}</Text>
-                            <Text style={styles.name}>{this.state.userInfo.timeStamp}</Text>
-                        </View>
-                    </View>
-                </View>
-                </View>
-                
-
-            <Carousel
-              style={styles.feed}
-              ref={ ref =>  this.carousel = ref }
-              data={this.state.carousel}
-              sliderWidth={sliderWidth}
-              itemWidth={itemWidth}
-              renderItem = {this.renderPost}
-            />
-            
             </SafeAreaView>
 
         );
-    }
+    //}
 
 }
 
@@ -126,12 +169,12 @@ const styles = StyleSheet.create({
         marginRight: 16
     },
     name: {
-        fontSize: 15,
+        fontSize: 20,
         fontWeight: "500",
         color: "#454D65"
     },
     timeStamp: {
-        fontSize: 11,
+        fontSize: 15,
         color: "#454D65",
         marginRight: 4
     },
@@ -148,3 +191,5 @@ const styles = StyleSheet.create({
 
 
 })
+
+export default Post;

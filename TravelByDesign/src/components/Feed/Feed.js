@@ -1,125 +1,197 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Text, FlatList, Image, ScrollView} from "react-native";
+import React, { Component,useEffect, useState } from 'react';
+import { StyleSheet, View, Text, FlatList, Image, ScrollView, SafeAreaView, Dimensions, TouchableOpacity} from "react-native";
+import Carousel from 'react-native-snap-carousel';
 
-posts = [
-    {
-        id: "1",
-        name: "Joe McKay",
-        text:
-            "This is my trip to Bali",
-        image: require("./pic.jpg"),
-        timeStamp: "1/1/2020"
-    }
-]
+import {images} from "../../../pictureindex.js";
+import {database} from "../../../firebaseconfig.js";
+const postsRef = database.ref('/posts');
 
-export default class Feed extends React.Component {
+const Feed = ({navigation}) => {
+    const [posts,setPosts] = useState(null);
+    const [isLoading,setLoading] = useState(true);
 
-    render() {
-        return(
+    retrievePosts = async () => {
+        // setPosts({name: "name"});
+        const initPosts = [];
+        await postsRef.on('value', snapshot => {
+            const data = snapshot.val();
+            // if(snapshot.val()) {
+            //console.log("*****data******",data);
+            Object.keys(data).forEach(post => initPosts.push(data[post]));
+            // console.log("*****initPosts*****",initPosts);
+            setPosts(initPosts);
+            setLoading(false);
+            console.log("******posts*******",posts);
+            // }
+        });
+        //return initPosts;
+    };
+    useEffect(() => {
+        console.log("calling useEffect");
+        // console.log(images);
+        retrievePosts();
+        //console.log('*****',posts);
+    },[]);
 
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <Text style={styles.headerTitle}>Feed</Text>
+   renderPost= ({item, index}) => {
+    // const picturePath = item.pictureCollection[0].picture;
+    // var splitPicture = picturePath.split("/");
+    // var getName = splitPicture[splitPicture.length - 1].split(".")[0];
+
+        return (
+            <View>
+                <TouchableOpacity onPress ={ () =>
+                    navigation.navigate('Post',{posts: item.pictureCollection, userid: item.userid, location: item.location, tags: item.tags})
+                }>
+                    <Image source={images[item.pictureCollection[0].picture]} style={styles.postImage} resizeMode="cover"/>
+                </TouchableOpacity>
+                <View style={styles.feedItem}>
+                <Text >{item.title}</Text>
                 </View>
-
-                <ScrollView
-                    scrollEventThrottle={16}
-                >
-                    <View style={styles.container}>
-                        <Text style={styles.headerTitle}>
-                            Local
-                        </Text>
-
-                        <View style={styles.post}>
-                            <ScrollView
-                                horizontal={true}
-                                showsHorizontalScrollIndicator={false}
-                            >
-
-                                <View style={styles.carousel}>
-                                    <View style={{flex:2}}>
-                                        <Image source={require('./downtown.jpg')} style={styles.image} />
-                                    </View>
-                                </View>
-
-                                <View style={styles.carousel}>
-                                    <View style={{flex:2}}>
-                                        <Image source={require('./park.jpeg')} style={styles.image} />
-                                    </View>
-                                </View>
-
-                                <View style={styles.carousel}>
-                                    <View style={{flex:2}}>
-                                        <Image source={require('./chinatown.jpg')} style={styles.image} />
-                                    </View>
-                                </View>
-
-                                <View style={styles.carousel}>
-                                    <View style={{flex:2}}>
-                                        <Image source={require('./salesforce.jpg')} style={styles.image} />
-                                    </View>
-                                </View>
-
-
-                            </ScrollView>
-
-                        </View>
-
-                    </View>
-
-
-
-                    <View style={styles.container}>
-                        <Text style={styles.headerTitle}>
-                            Trending
-                        </Text>
-
-                        <View style={styles.post}>
-                            <ScrollView
-                                horizontal={true}
-                                showsHorizontalScrollIndicator={false}
-                            >
-
-                                <View style={styles.carousel}>
-                                    <View style={{flex:2}}>
-                                        <Image source={require('./pic.jpg')} style={styles.image} />
-                                    </View>
-                                </View>
-
-                                <View style={styles.carousel}>
-                                    <View style={{flex:2}}>
-                                        <Image source={require('./kyoto.jpg')} style={styles.image} />
-                                    </View>
-                                </View>
-
-                                <View style={styles.carousel}>
-                                    <View style={{flex:2}}>
-                                        <Image source={require('./times.jpg')} style={styles.image} />
-                                    </View>
-                                </View>
-
-                                <View style={styles.carousel}>
-                                    <View style={{flex:2}}>
-                                        <Image source={require('./bali.jpg')} style={styles.image} />
-                                    </View>
-                                </View>
-
-
-                            </ScrollView>
-
-                        </View>
-
-                    </View>
-
-
-                </ScrollView>
-
             </View>
-
         );
     }
 
+    //render() {
+        return(
+            <SafeAreaView style={styles.container}>
+                <View style={styles.header}>
+                    <Text style={styles.headerTitle}>Feed</Text>
+                </View>
+                { isLoading ?
+                     (<View style={styles.header}>
+                          <Text style={styles.headerTitle}> Loading </Text>
+                      </View>
+                     ) : (
+                       <Carousel
+                           style={styles.feed}
+                           // ref={ ref => this.carousel = ref }
+                           data={posts}
+                           sliderWidth={sliderWidth}
+                           itemWidth={itemWidth}
+                           renderItem = {this.renderPost}
+                       />
+                    )
+                }
+            </SafeAreaView>
+
+        );
 }
+
+// export default class Feed extends React.Component {
+//
+//     render() {
+//         return(
+//
+//             <View style={styles.container}>
+//                 <View style={styles.header}>
+//                     <Text style={styles.headerTitle}>Feed</Text>
+//                 </View>
+//
+//                 <ScrollView
+//                     scrollEventThrottle={16}
+//                 >
+//                     <View style={styles.container}>
+//                         <Text style={styles.headerTitle}>
+//                             Local
+//                         </Text>
+//
+//                         <View style={styles.post}>
+//                             <ScrollView
+//                                 horizontal={true}
+//                                 showsHorizontalScrollIndicator={false}
+//                             >
+//
+//                                 <View style={styles.carousel}>
+//                                     <View style={{flex:2}}>
+//                                         <Image source={require('./downtown.jpg')} style={styles.image} />
+//                                     </View>
+//                                 </View>
+//
+//                                 <View style={styles.carousel}>
+//                                     <View style={{flex:2}}>
+//                                         <Image source={require('./park.jpeg')} style={styles.image} />
+//                                     </View>
+//                                 </View>
+//
+//                                 <View style={styles.carousel}>
+//                                     <View style={{flex:2}}>
+//                                         <Image source={require('./chinatown.jpg')} style={styles.image} />
+//                                     </View>
+//                                 </View>
+//
+//                                 <View style={styles.carousel}>
+//                                     <View style={{flex:2}}>
+//                                         <Image source={require('./salesforce.jpg')} style={styles.image} />
+//                                     </View>
+//                                 </View>
+//
+//
+//                             </ScrollView>
+//
+//                         </View>
+//
+//                     </View>
+//
+//
+//
+//                     <View style={styles.container}>
+//                         <Text style={styles.headerTitle}>
+//                             Trending
+//                         </Text>
+//
+//                         <View style={styles.post}>
+//                             <ScrollView
+//                                 horizontal={true}
+//                                 showsHorizontalScrollIndicator={false}
+//                             >
+//
+//                                 <View style={styles.carousel}>
+//                                     <View style={{flex:2}}>
+//                                         <Image source={require('../../../asset/pic.jpg')} style={styles.image} />
+//                                     </View>
+//                                 </View>
+//
+//                                 <View style={styles.carousel}>
+//                                     <View style={{flex:2}}>
+//                                         <Image source={require('../../../asset/kyoto.jpg')} style={styles.image} />
+//                                     </View>
+//                                 </View>
+//
+//                                 <View style={styles.carousel}>
+//                                     <View style={{flex:2}}>
+//                                         <Image source={require('./times.jpg')} style={styles.image} />
+//                                     </View>
+//                                 </View>
+//
+//                                 <View style={styles.carousel}>
+//                                     <View style={{flex:2}}>
+//                                         <Image source={require('./bali.jpg')} style={styles.image} />
+//                                     </View>
+//                                 </View>
+//
+//
+//                             </ScrollView>
+//
+//                         </View>
+//
+//                     </View>
+//
+//
+//                 </ScrollView>
+//
+//             </View>
+//
+//         );
+//     }
+//
+// }
+
+const horizontalMargin = 20;
+const slideWidth = 280;
+
+const sliderWidth = Dimensions.get('window').width;
+const itemWidth = slideWidth + horizontalMargin * 2;
 
 const styles = StyleSheet.create({
     container: {
@@ -133,6 +205,16 @@ const styles = StyleSheet.create({
         marginLeft:20,
         borderWidth:0.5,
         borderColor:"gray"
+    },
+    feed: {
+        marginHorizontal: 16
+    },
+    feedItem: {
+        backgroundColor: "#FFF",
+        borderRadius: 5,
+        padding: 8,
+        flexDirection: "row",
+        marginVertical: 8
     },
     header: {
         paddingTop: 64,
@@ -148,15 +230,21 @@ const styles = StyleSheet.create({
         fontWeight: "700",
         paddingHorizontal: 20
     },
-    post: {
-        height: 250,
-        marginTop: 20
-    },
     image: {
         flex: 1,
         width: null,
         height: null,
-        resizeMode: 'cover'
-    }
+        resizeMode: 'contain'
+    },
+    post: {
+        height: 250,
+        marginTop: 20
+    },
+    postImage: {
+    width: undefined,
+    height: 350,
+    marginVertical: 16
+    },
 
-})
+}) //end of styles object list
+export default Feed;
