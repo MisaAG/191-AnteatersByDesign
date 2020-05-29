@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, FlatList, Image, SafeAreaView, Dimensions} from "react-native";
+import { StyleSheet, View, Text, FlatList, Image, SafeAreaView, Dimensions, Button} from "react-native";
 import Carousel from 'react-native-snap-carousel';
 
 import {database} from "../../../firebaseconfig.js";
@@ -81,6 +81,9 @@ const Post = ({route, navigation}) => {
             <View style={styles.feedItem}>
             <Text style={styles.posts}>{item.caption}</Text>
             </View>
+            <Button
+             title="Save"
+             />
         </View>
     );
     }
@@ -116,6 +119,7 @@ const Post = ({route, navigation}) => {
                     itemWidth={itemWidth}
                     renderItem = {this.renderPost}
                 />
+
                 <View style= {styles.feedItem}>
                     <Text style = {styles.headerTitle}>Tags: </Text>
                     <FlatList
