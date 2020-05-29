@@ -7,38 +7,33 @@ import {images} from "../../../pictureindex.js";
 
 
 const Post = ({route, navigation}) => {
-    const {posts} = route.params;
+    const {post} = route.params;
     const {userid} = route.params;
-    const {location} = route.params;
-    const {tags} = route.params;
+    // const {location} = route.params;
+    // const {tags} = route.params;
     // const [posts,setPosts] = useState(null);
     const [isLoading,setLoading] = useState(true);
-    const [user,setUser] = useState(null)
+    const [user,setUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null);
+    const usersRef = database.ref('/users');
 
-    retrieveUser = async () => {
-        // setPosts({name: "name"});
-        const postsRef = database.ref('/users');
-        // const initPosts = [];
-        await postsRef.on('value', snapshot => {
+    retrieveUsers = async () => {
+        await usersRef.on('value', snapshot => {
             const data = snapshot.val();
             // console.log(data);
             initUser = data[userid];
+            loginUser = data['-M6g0qovjBa4gMAcHpFl'];
             console.log("***inituser***",initUser)
             setUser(initUser);
-            // if(snapshot.val()) {
-            //console.log("*****data******",data);
-            // Object.keys(data).forEach(post => initPosts.push(data[post]));
-            // console.log("*****initPosts*****",initPosts);
-            // setPosts(initPosts);
+            setCurrentUser(loginUser);
             setLoading(false);
-            // console.log("******posts*******",posts);
-            // }
         });
         //return initPosts;
     };
     useEffect(() => {
         console.log("calling useEffect");
-        retrieveUser();
+        console.log("***post***",post);
+        retrieveUsers();
         // console.log("***tags***",tags)
         // console.log('*****',posts);
     },[]);
@@ -89,6 +84,15 @@ const Post = ({route, navigation}) => {
         </View>
     );
     }
+    updateUser = () => {
+        var updates = {};
+        var updateData = {
+          japantourism : "sf for japan bucketlist",
+          sftour : "id for sf bucketlist"
+        };
+        updates[currentUser.userid + '/bucketlist'] = updateData;
+        return usersRef.update(updates);
+    }
 
     //render() {
         return(
@@ -100,14 +104,14 @@ const Post = ({route, navigation}) => {
                   <View style={styles.feedItem}>
                       <View style={{flex: 1}}>
                           <Text style= {styles.name}>{user.firstname} {user.lastname}</Text>
-                          <Text style= {styles.timeStamp}>{location}</Text>
+                          <Text style= {styles.timeStamp}>{post.location}</Text>
                       </View>
                   </View>
                 }
                 <Carousel
                     style={styles.feed}
                     // ref={ ref => this.carousel = ref }
-                    data={posts}
+                    data={post.pictureCollection}
                     sliderWidth={sliderWidth}
                     itemWidth={itemWidth}
                     renderItem = {this.renderPost}
@@ -115,7 +119,7 @@ const Post = ({route, navigation}) => {
                 <View style= {styles.feedItem}>
                     <Text style = {styles.headerTitle}>Tags: </Text>
                     <FlatList
-                        data={tags}
+                        data={post.tags}
                         renderItem= {({item}) => (
                           <Text style={styles.name}> {item} </Text>
                         )}
