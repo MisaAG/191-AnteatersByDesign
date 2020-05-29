@@ -23,7 +23,7 @@ const Post = ({route, navigation}) => {
             // console.log(data);
             initUser = data[userid];
             loginUser = data['-M6g0qovjBa4gMAcHpFl'];
-            console.log("***inituser***",initUser)
+            // console.log("***inituser***",initUser)
             setUser(initUser);
             setCurrentUser(loginUser);
             setLoading(false);
@@ -81,6 +81,7 @@ const Post = ({route, navigation}) => {
             <Text style={styles.posts}>{item.caption}</Text>
             </View>
             <Button
+             onPress={updateUser}
              title="Save"
              />
         </View>
@@ -89,7 +90,8 @@ const Post = ({route, navigation}) => {
     updateUser = () => {
         var updateBucket = [];
         var updates = {};
-        if ('bucketlist' in post) {
+        if ('bucketlist' in currentUser) {
+          console.log("found bucketlist")
           updateBucket = currentUser.bucketlist;
         }
         updateBucket.push(post.postid);
