@@ -46,7 +46,7 @@ const Feed = ({navigation}) => {
                     <Image source={images[item.pictureCollection[0].picture]} style={styles.postImage} resizeMode="cover"/>
                 </TouchableOpacity>
                 <View style={styles.feedItem}>
-                <Text >{item.title}</Text>
+                <Text style={styles.caption}>{item.title}</Text>
                 </View>
             </View>
         );
@@ -207,14 +207,18 @@ const styles = StyleSheet.create({
         borderColor:"gray"
     },
     feed: {
-        marginHorizontal: 16
+        marginHorizontal: 16,
     },
     feedItem: {
         backgroundColor: "#FFF",
         borderRadius: 5,
         padding: 8,
         flexDirection: "row",
-        marginVertical: 8
+        marginVertical: 8,
+        alignItems: "center",
+        justifyContent: "center",
+        borderColor: "black",
+        borderWidth: 1
     },
     header: {
         paddingTop: 64,
@@ -244,6 +248,9 @@ const styles = StyleSheet.create({
     width: undefined,
     height: 350,
     marginVertical: 16
+    },
+    caption: {
+        fontSize: 25,
     },
 
 }) //end of styles object list
