@@ -2,16 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, FlatList, Image, SafeAreaView, Dimensions, Button} from "react-native";
 import Carousel from 'react-native-snap-carousel';
 
-import {database} from "../../../firebaseconfig.js";
 import {images} from "../../../pictureindex.js";
+import {database} from "../../../firebaseconfig.js";
 
 
 const Post = ({route, navigation}) => {
     const {post} = route.params;
     const {userid} = route.params;
-    // const {location} = route.params;
-    // const {tags} = route.params;
-    // const [posts,setPosts] = useState(null);
     const [isLoading,setLoading] = useState(true);
     const [user,setUser] = useState(null);
     const [currentUser, setCurrentUser] = useState(null);
@@ -19,6 +16,12 @@ const Post = ({route, navigation}) => {
 
     retrieveUsers = async () => {
         await usersRef.on('value', snapshot => {
+          /*
+            data takes a reference to the database.
+            inituser uses data and takes needed user based on the post's userid.
+            loginuser uses data and takes hardcoded userid(temporary) to have access to a user.
+            setUser and setCurrentUser sets the state of the screen to store fetched info.
+          */
             const data = snapshot.val();
             // console.log(data);
             initUser = data[userid];
@@ -88,6 +91,10 @@ const Post = ({route, navigation}) => {
     );
     }
     updateUser = () => {
+      /*
+      looks for a bucketlist on the user object and pushes postinfo to it.
+      updates database using usersRef.update.
+      */
         var updateBucket = [];
         var updates = {};
         if ('bucketlist' in currentUser) {
