@@ -32,7 +32,6 @@ const Post = ({route, navigation}) => {
     };
     useEffect(() => {
         console.log("calling useEffect");
-        console.log("***post***",post);
         retrieveUsers();
         // console.log("***tags***",tags)
         // console.log('*****',posts);
@@ -85,12 +84,13 @@ const Post = ({route, navigation}) => {
     );
     }
     updateUser = () => {
+        var updateBucket = [];
         var updates = {};
-        var updateData = {
-          japantourism : "sf for japan bucketlist",
-          sftour : "id for sf bucketlist"
-        };
-        updates[currentUser.userid + '/bucketlist'] = updateData;
+        if ('bucketlist' in post) {
+          updateBucket = currentUser.bucketlist;
+        }
+        updateBucket.push(post.postid);
+        updates[currentUser.userid + '/bucketlist'] = updateBucket;
         return usersRef.update(updates);
     }
 
