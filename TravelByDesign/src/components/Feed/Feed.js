@@ -66,7 +66,7 @@ const Feed = ({navigation}) => {
     // const picturePath = item.pictureCollection[0].picture;
     // var splitPicture = picturePath.split("/");
     // var getName = splitPicture[splitPicture.length - 1].split(".")[0];
-
+    // console.log(postCollection);
     return (
       <View>
         <TouchableOpacity
@@ -93,6 +93,7 @@ const Feed = ({navigation}) => {
         </View>
       ) : (
         <ScrollView>
+          <Text style={styles.headerTitle}> Local Attractions </Text>
           <Carousel
             style={styles.feed}
             // ref={ ref => this.carousel = ref }
@@ -101,6 +102,7 @@ const Feed = ({navigation}) => {
             itemWidth={itemWidth}
             renderItem={renderPost}
           />
+          <Text style={styles.headerTitle}> Based on your interests </Text>
           {postCollections.map((postCollection, index) => {
             return (
               <Carousel
@@ -114,18 +116,18 @@ const Feed = ({navigation}) => {
               />
             );
           })}
-          <Carousel
-            style={styles.feed}
-            // ref={ ref => this.carousel = ref }
-            data={posts}
-            sliderWidth={sliderWidth}
-            itemWidth={itemWidth}
-            renderItem={renderPost}
-          />
         </ScrollView>
       )}
     </SafeAreaView>
   );
+  // <Carousel
+  //   style={styles.feed}
+  //   // ref={ ref => this.carousel = ref }
+  //   data={posts}
+  //   sliderWidth={sliderWidth}
+  //   itemWidth={itemWidth}
+  //   renderItem={renderPost}
+  // />
 };
 
 // export default class Feed extends React.Component {
