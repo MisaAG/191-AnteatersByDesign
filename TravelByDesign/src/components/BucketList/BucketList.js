@@ -71,7 +71,7 @@ const BucketList = ({route, navigation}) => {
                   fetchedPost = data[postid];
         });
         alert(fetchedPost);
-        navigation.navigate('Post',{post: fetchedPost})
+        navigation.navigate('Navigate to Post',{post: fetchedPost})
     }
 
     _renderItem = ({item, index}) => {
@@ -217,4 +217,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default BucketList
+export default BucketList;

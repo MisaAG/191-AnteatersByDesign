@@ -38,7 +38,7 @@ export default class Login extends Component {
           email: '', 
           password: ''
         })
-        this.props.navigation.navigate('AppTabs')
+        this.props.navigation.navigate('Travel By Design')
       })
       .catch(error => this.setState({ errorMessage: error.message }))
     }
