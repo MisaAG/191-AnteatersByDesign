@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, FlatList, Image, SafeAreaView, Dimensions,Touch
 import CreateBucketList from './CreateBucketList';
 
 import firebase from "../../../firebaseconfig.js";
+import {images} from "../../../pictureindex.js";
 
 const database = firebase.database();
 
@@ -64,14 +65,18 @@ const BucketList = ({route, navigation}) => {
     //     return dataList
     // }
     _getPost = async (postid) => {
-        var fetchedPost = {};
-        let getPicture = await postsRef.on('value', snapshot => {
-                  console.log("executing getPost");
-                  const data = snapshot.val();
-                  fetchedPost = data[postid];
-        });
-        alert(fetchedPost);
-        navigation.navigate('Navigate to Post',{post: fetchedPost})
+        let snapshot = await postsRef.once('value', snapshot => {
+            return snapshot.val().postid;
+            // console.log("executing getPost");
+            // const data = snapshot.val();
+            // console.log("***data***",data);
+            // return data[postid];
+        })
+    }
+        // navigation.navigate('Post',{post: fetchedPost})
+    _postandNavigate = async (postid) => {
+        const result = await _getPost(postid).then(console.log);
+        // console.log("***result***",result);
     }
 
     _renderItem = ({item, index}) => {
@@ -79,7 +84,7 @@ const BucketList = ({route, navigation}) => {
         console.log(item);
         return (
             <View style={itemStyle}>
-                <TouchableOpacity onPress ={_getPost} >
+                <TouchableOpacity onPress ={_postandNavigate} >
                     <Image source={images[item.thumbnail]} style={styles.itemImage}/>
                 </TouchableOpacity>
             </View>

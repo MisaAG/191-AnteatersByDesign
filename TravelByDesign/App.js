@@ -132,9 +132,18 @@ const bucketListStack = createStackNavigator();
 function BucketListStack() {
   return (
     <bucketListStack.Navigator>
-      <bucketListStack.Screen name="My List" component={BucketList} />
-      <bucketListStack.Screen name="Create List" component={CreateBucketList} />
-      <bucketListStack.Screen name="Navigate to Post" component={Post} />
+      <bucketListStack.Screen
+        name="My List"
+        component={BucketList}
+        />
+      <bucketListStack.Screen
+        name='Create List'
+        component={CreateBucketList}
+        />
+      <bucketListStack.Screen
+        name='Post'
+        component={Post}
+      />
     </bucketListStack.Navigator>
   );
 }
