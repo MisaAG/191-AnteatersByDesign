@@ -18,9 +18,14 @@ const postsRef = firebase.database().ref('/posts');
 
 const Feed = ({navigation}) => {
   const [isLoading, setLoading] = useState(true);
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([]); //exists for testing only!
   const [localPosts, setLocalPosts] = useState([]);
   const [soloPosts, setSoloPosts] = useState([]);
+  const [groupPosts, setGroupPosts] = useState([]);
+  const [businessPosts, setBusinessPosts] = useState([]);
+  const [adventurePosts, setAdventurePosts] = useState([]);
+  const [luxuryPosts, setLuxuryPosts] = useState([]);
+  const [postCollections, setPostCollections] = useState([]);
 
   const retrievePosts = async () => {
     // setPosts({name: "name"});
@@ -37,10 +42,15 @@ const Feed = ({navigation}) => {
       // }
       if (initPosts.length > 0) {
         setLocalPosts(initPosts.filter(p => p.location === 'San Francisco'));
-        setSoloPosts(initPosts.filter(p => p.tags.includes('solotravel')));
+        setPostCollections([
+          initPosts.filter(p => p.tags.includes('solotravel')),
+          initPosts.filter(p => p.tags.includes('groupTravel')),
+          initPosts.filter(p => p.tags.includes('business')),
+          initPosts.filter(p => p.tags.includes('adventure')),
+          initPosts.filter(p => p.tags.includes('luxury')),
+          initPosts.filter(p => p.tags.includes('foodie')),
+        ]);
       }
-      console.log('******localposts*******', localPosts);
-      console.log('******soloposts*******', soloPosts);
     });
     //return initPosts;
   };
@@ -86,11 +96,24 @@ const Feed = ({navigation}) => {
           <Carousel
             style={styles.feed}
             // ref={ ref => this.carousel = ref }
-            data={soloPosts}
+            data={localPosts}
             sliderWidth={sliderWidth}
             itemWidth={itemWidth}
             renderItem={renderPost}
           />
+          {postCollections.map((postCollection, index) => {
+            return (
+              <Carousel
+                key={index}
+                style={styles.feed}
+                // ref={ ref => this.carousel = ref }
+                data={postCollection}
+                sliderWidth={sliderWidth}
+                itemWidth={itemWidth}
+                renderItem={renderPost}
+              />
+            );
+          })}
           <Carousel
             style={styles.feed}
             // ref={ ref => this.carousel = ref }
