@@ -3,8 +3,8 @@ import { StyleSheet, View, Text, FlatList, Image, ScrollView, SafeAreaView, Dime
 import Carousel from 'react-native-snap-carousel';
 
 import {images} from "../../../pictureindex.js";
-import {database} from "../../../firebaseconfig.js";
-const postsRef = database.ref('/posts');
+import firebase from "../../../firebaseconfig.js";
+const postsRef = firebase.database().ref('/posts');
 
 const Feed = ({navigation}) => {
     const [posts,setPosts] = useState(null);
@@ -55,9 +55,6 @@ const Feed = ({navigation}) => {
     //render() {
         return(
             <SafeAreaView style={styles.container}>
-                <View style={styles.header}>
-                    <Text style={styles.headerTitle}>Feed</Text>
-                </View>
                 { isLoading ?
                      (<View style={styles.header}>
                           <Text style={styles.headerTitle}> Loading </Text>

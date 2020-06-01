@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, FlatList, Image, SafeAreaView, Dimensions} from "react-native";
+import { StyleSheet, View, Text, FlatList, Image, SafeAreaView, Dimensions, Button} from "react-native";
+import firebase from '../../../firebaseconfig';
 
 const numColumns = 3
 const WIDTH = Dimensions.get('window').width
@@ -50,6 +51,13 @@ export default class UserProfile extends React.Component {
         )
     }
 
+    signOut = () => {
+        firebase.auth().signOut().then(() => {
+          this.props.navigation.navigate('Login')
+        })
+        .catch(error => this.setState({ errorMessage: error.message }))
+      }  
+
     render() {
         return(
             <SafeAreaView style={styles.container}>
@@ -74,6 +82,11 @@ export default class UserProfile extends React.Component {
                 renderItem={this._renderItem}
                 />
 
+                <Button
+                    color="#3740FE"
+                    title="Logout"
+                    onPress={() => this.signOut()}
+                    />
             </SafeAreaView>
         );
     }

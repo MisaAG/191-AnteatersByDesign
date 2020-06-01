@@ -3,8 +3,9 @@ import { StyleSheet, View, Text, FlatList, Image, SafeAreaView, Dimensions, Butt
 import Carousel from 'react-native-snap-carousel';
 
 import {images} from "../../../pictureindex.js";
-import {database} from "../../../firebaseconfig.js";
+import firebase from "../../../firebaseconfig.js";
 
+const database = firebase.database();
 
 const Post = ({route, navigation}) => {
     const {post} = route.params;
