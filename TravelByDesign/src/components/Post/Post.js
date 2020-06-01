@@ -8,7 +8,7 @@ import {database} from "../../../firebaseconfig.js";
 
 const Post = ({route, navigation}) => {
     const {post} = route.params;
-    const {userid} = route.params;
+    // const {userid} = route.params;
     const [isLoading,setLoading] = useState(true);
     const [user,setUser] = useState(null);
     const [currentUser, setCurrentUser] = useState(null);
@@ -24,8 +24,8 @@ const Post = ({route, navigation}) => {
           */
             const data = snapshot.val();
             // console.log(data);
-            initUser = data[userid];
-            loginUser = data['-M6g0qovjBa4gMAcHpFl'];
+            let initUser = data[post.userid];
+            let loginUser = data['-M6g0qovjBa4gMAcHpFl'];
             // console.log("***inituser***",initUser)
             setUser(initUser);
             setCurrentUser(loginUser);
@@ -39,43 +39,28 @@ const Post = ({route, navigation}) => {
         // console.log("***tags***",tags)
         // console.log('*****',posts);
     },[]);
-    // /*
-    // constructor(props){
-    //     super(props);
-    //     this.state = {
-    //         carousel :
-    //         /*
-    //         [
-    //                 {
-    //                     id: "1",
-    //                     text:
-    //                         "This is my trip to France",
-    //                     image: require("./pic.jpg"),
-    //                 },
-    //                 {
-    //                     id: "2",
-    //                     text:
-    //                         "This is my trip to France",
-    //                     image: require("./pic.jpg"),
-    //                 },
-    //                 {
-    //                     id: "3",
-    //                     text:
-    //                         "This is my trip to France",
-    //                     image: require("./pic.jpg"),
-    //                 }
-    //         ]
-    //         */,
-    //
-    //         userInfo : {
-    //             name: "John Doe",
-    //             timeStamp: "1/1/2020",
-    //             avatar: require("./profile.jpg")
-    //         }
-    //     }*/
-    //}
-
-
+    updateUser = () => {
+      /*
+      looks for a bucketlist on the user object and pushes postinfo to it.
+      updates database using usersRef.update.
+      */
+        var updateBucket = [];
+        // var newBucketKey = usersRef.child(userid).push().key;
+        var updates = {};
+        if ('bucketlist' in currentUser) {
+          console.log("found bucketlist");
+          updateBucket = currentUser.bucketlist;
+        }
+        var getStop = post.pictureCollection[0];
+        var bucketlistObject = {
+          postid : post.postid,
+          thumbnail : getStop.picture
+        }
+        updateBucket.push(bucketlistObject);
+        updates[currentUser.userid + '/bucketlist'] = updateBucket;
+        alert("Post saved to bucketlist!")
+        return usersRef.update(updates);
+    }
    renderPost= ({item, index}) => {
     return (
         <View>
@@ -90,22 +75,6 @@ const Post = ({route, navigation}) => {
         </View>
     );
     }
-    updateUser = () => {
-      /*
-      looks for a bucketlist on the user object and pushes postinfo to it.
-      updates database using usersRef.update.
-      */
-        var updateBucket = [];
-        var updates = {};
-        if ('bucketlist' in currentUser) {
-          console.log("found bucketlist")
-          updateBucket = currentUser.bucketlist;
-        }
-        updateBucket.push(post.postid);
-        updates[currentUser.userid + '/bucketlist'] = updateBucket;
-        return usersRef.update(updates);
-    }
-
     //render() {
         return(
             <SafeAreaView style={styles.container}>
