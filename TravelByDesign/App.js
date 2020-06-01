@@ -32,28 +32,10 @@ import CreateBucketList from './src/components/BucketList/CreateBucketList';
 import CreatePost from './src/components/Post/CreatePost';
 import UserProfile from './src/components/Profile/UserProfile';
 import Search from './src/components/Search/Search';
-
 import Results from './src/components/Search/Results';
-
 import SignUp from './src/components/SignUp/SignUp';
 
-// Place Holder Screens
-
-EditProfile = () => (
-  <>
-    <View style={styles.center}>
-      <Text style={styles.title}>Edit Profile</Text>
-    </View>
-  </>
-);
-
-Settings = () => (
-  <>
-    <View style={styles.center}>
-      <Text style={styles.title}>Settings</Text>
-    </View>
-  </>
-);
+import firebase from './firebaseconfig';
 
 const bottomTab = createMaterialBottomTabNavigator();
 function AppTabs() {
@@ -133,9 +115,14 @@ function AuthStack() {
       <Stack.Screen
         name="Login"
         component={Login}
-        options={{header: () => null}}
+        options={{title: 'Travel By Design'}}
       />
       <Stack.Screen name="Signup" component={SignUp} />
+      <Stack.Screen
+        name="AppTabs"
+        component={AppTabs}
+        options={{headerLeft: () => null}}
+      />
     </Stack.Navigator>
   );
 }
@@ -146,24 +133,16 @@ function BucketListStack() {
     <bucketListStack.Navigator>
       <bucketListStack.Screen name="My List" component={BucketList} />
       <bucketListStack.Screen name="Create List" component={CreateBucketList} />
+      <bucketListStack.Screen name="Navigate to Post" component={Post} />
     </bucketListStack.Navigator>
   );
 }
 
 export default function App() {
-  const isSignedIn = 1;
-  return isSignedIn ? (
-    <>
-      <NavigationContainer>
-        <AppTabs />
-      </NavigationContainer>
-    </>
-  ) : (
-    <>
-      <NavigationContainer>
-        <AuthStack />
-      </NavigationContainer>
-    </>
+  return (
+    <NavigationContainer>
+      <AuthStack />
+    </NavigationContainer>
   );
 }
 

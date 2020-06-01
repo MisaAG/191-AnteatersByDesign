@@ -12,9 +12,9 @@ import {
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
-import {images} from '../../../pictureindex.js';
-import {database} from '../../../firebaseconfig.js';
-const postsRef = database.ref('/posts');
+import {images} from "../../../pictureindex.js";
+import firebase from "../../../firebaseconfig.js";
+const postsRef = firebase.database().ref('/posts');
 
 const Feed = ({navigation}) => {
   const [posts, setPosts] = useState(null);
@@ -57,24 +57,39 @@ const Feed = ({navigation}) => {
     // var splitPicture = picturePath.split("/");
     // var getName = splitPicture[splitPicture.length - 1].split(".")[0];
 
-    return (
-      <View>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('Post', {post: item, userid: item.userid})
-          }>
-          <Image
-            source={images[item.pictureCollection[0].picture]}
-            style={styles.postImage}
-            resizeMode="cover"
-          />
-        </TouchableOpacity>
-        <View style={styles.feedItem}>
-          <Text style={styles.caption}>{item.title}</Text>
-        </View>
-      </View>
-    );
-  };
+        return (
+            <View>
+                <TouchableOpacity onPress ={ () =>
+                    navigation.navigate('Post',{post: item})
+                }>
+                    <Image source={images[item.pictureCollection[0].picture]} style={styles.postImage} resizeMode="cover"/>
+                </TouchableOpacity>
+                <View style={styles.feedItem}>
+                <Text style={styles.caption}>{item.title}</Text>
+                </View>
+            </View>
+        );
+    }
+
+    //render() {
+        return(
+            <SafeAreaView style={styles.container}>
+                { isLoading ?
+                     (<View style={styles.header}>
+                          <Text style={styles.headerTitle}> Loading </Text>
+                      </View>
+                     ) : (
+                       <Carousel
+                           style={styles.feed}
+                           // ref={ ref => this.carousel = ref }
+                           data={posts}
+                           sliderWidth={sliderWidth}
+                           itemWidth={itemWidth}
+                           renderItem = {this.renderPost}
+                       />
+                    )
+                }
+            </SafeAreaView>
 
   //render() {
   return (
