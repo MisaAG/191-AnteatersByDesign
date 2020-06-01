@@ -10,11 +10,11 @@ import {
   StatusBar,
 } from 'react-native';
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from  '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
   Header,
@@ -35,75 +35,79 @@ import Search from './src/components/Search/Search';
 import Results from './src/components/Search/Results';
 import SignUp from './src/components/SignUp/SignUp';
 
-import firebase from './firebaseconfig'
+import firebase from './firebaseconfig';
 
 const bottomTab = createMaterialBottomTabNavigator();
 function AppTabs() {
-  return(
+  return (
     <bottomTab.Navigator
-    initialRouteName="Feed"
-    activeColor="white"
-    style={{ backgroundColor: 'light blue' }}>
+      initialRouteName="Feed"
+      activeColor="white"
+      style={{backgroundColor: 'light blue'}}>
       <bottomTab.Screen
-        name = 'Feed'
+        name="Feed"
         component={HomeStack}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({color}) => (
             <MaterialCommunityIcons name="home" color={color} size={26} />
           ),
         }}
-        />
+      />
       <bottomTab.Screen
-        name='Search'
+        name="Search"
         component={Search}
         options={{
           tabBarLabel: 'Search',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name='magnify' color={color} size={26} />
+          tabBarIcon: ({color}) => (
+            <MaterialCommunityIcons name="magnify" color={color} size={26} />
           ),
         }}
-        />
+      />
       <bottomTab.Screen
-        name='CreatePost'
+        name="CreatePost"
         component={CreatePost}
         options={{
           tabBarLabel: 'Make a Post',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name='upload' color={color} size={26} />
+          tabBarIcon: ({color}) => (
+            <MaterialCommunityIcons name="upload" color={color} size={26} />
           ),
         }}
-        />
+      />
       <bottomTab.Screen
-        name='Bucket List'
+        name="Bucket List"
         component={BucketList}
         options={{
           tabBarLabel: 'Bucket List',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name='compass' color={color} size={26} />
+          tabBarIcon: ({color}) => (
+            <MaterialCommunityIcons name="compass" color={color} size={26} />
           ),
         }}
-        />
+      />
       <bottomTab.Screen
-        name='UserProfile'
+        name="UserProfile"
         component={UserProfile}
         options={{
-          tabBarLabel: 'UserProfile',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name='alien' color={color} size={26} />
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({color}) => (
+            <MaterialCommunityIcons
+              name="account-star"
+              color={color}
+              size={26}
+            />
           ),
         }}
-        />
+      />
     </bottomTab.Navigator>
-  )
+  );
 }
 
 const Stack = createStackNavigator();
 function HomeStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name='Feed' component={Feed} />
-      <Stack.Screen name='Post' component={Post} />
+      <Stack.Screen name="Feed" component={Feed} />
+      <Stack.Screen name="Post" component={Post} />
     </Stack.Navigator>
   );
 }
@@ -111,21 +115,21 @@ function HomeStack() {
 const authStack = createStackNavigator();
 function AuthStack() {
   return (
-    <Stack.Navigator initialRouteName='Login'>
+    <Stack.Navigator initialRouteName="Login">
+      <Stack.Screen name="Login" component={Login} options={{title: 'Login'}} />
+      <Stack.Screen name="Signup" component={SignUp} />
       <Stack.Screen
-        name='Login'
-        component={Login}
-        options={ {title: 'Travel By Design'}}/>
-      <Stack.Screen name='Signup' component={SignUp} />
-      <Stack.Screen name='AppTabs' component={AppTabs}
-      options={{ headerLeft: () => null }} />
+        name="Travel By Design"
+        component={AppTabs}
+        options={{headerLeft: () => null}}
+      />
     </Stack.Navigator>
   );
 }
 
 const bucketListStack = createStackNavigator();
 function BucketListStack() {
-  return(
+  return (
     <bucketListStack.Navigator>
       <bucketListStack.Screen
         name="My List"
@@ -140,12 +144,15 @@ function BucketListStack() {
         component={Post}
       />
     </bucketListStack.Navigator>
-  )
+  );
 }
 
-
 export default function App() {
-  return <NavigationContainer><AuthStack /></NavigationContainer>;
+  return (
+    <NavigationContainer>
+      <AuthStack />
+    </NavigationContainer>
+  );
 }
 
 const styles = StyleSheet.create({
