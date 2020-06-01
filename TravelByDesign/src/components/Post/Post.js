@@ -69,10 +69,6 @@ const Post = ({route, navigation}) => {
             <View style={styles.feedItem}>
             <Text style={styles.posts}>{item.caption}</Text>
             </View>
-            <Button
-             onPress={updateUser}
-             title="Save"
-             />
         </View>
     );
     }
@@ -87,6 +83,10 @@ const Post = ({route, navigation}) => {
                       <View style={{flex: 1}}>
                           <Text style= {styles.name}>{user.firstname} {user.lastname}</Text>
                           <Text style= {styles.timeStamp}>{post.location}</Text>
+                          <Button
+                           onPress={updateUser}
+                           title="Save to your Bucketlist"
+                           />
                       </View>
                   </View>
                 }
