@@ -115,9 +115,9 @@ function AuthStack() {
       <Stack.Screen
         name='Login'
         component={Login}
-        options={{ header: () => null }}
-      />
+        options={ {title: 'Travel By Design'}}/>   
       <Stack.Screen name='Signup' component={SignUp} />
+      <Stack.Screen name='AppTabs' component={AppTabs} />
     </Stack.Navigator>
   );
 }
@@ -142,20 +142,9 @@ function BucketListStack() {
   )
 }
 
-const appStack = createStackNavigator();
-function AppStack() {
-  return(
-    <appStack.Navigator>
-    <appStack.Screen name="Login" component={AuthStack} />
-    <appStack.Screen name="AppTabs"  component={AppTabs}
-    options={ {title: 'Travel By Design', headerLeft: null }} 
-    />
-    </appStack.Navigator>
-  ) 
-}
 
 export default function App() {
-  return <NavigationContainer><AppStack /></NavigationContainer>;
+  return <NavigationContainer><AuthStack /></NavigationContainer>;
 }
 
 const styles = StyleSheet.create({
