@@ -115,9 +115,9 @@ function AuthStack() {
       <Stack.Screen
         name='Login'
         component={Login}
-        options={ {title: 'Travel By Design'}}/>   
+        options={ {title: 'Travel By Design'}}/>
       <Stack.Screen name='Signup' component={SignUp} />
-      <Stack.Screen name='AppTabs' component={AppTabs} 
+      <Stack.Screen name='AppTabs' component={AppTabs}
       options={{ headerLeft: () => null }} />
     </Stack.Navigator>
   );
@@ -136,7 +136,7 @@ function BucketListStack() {
         component={CreateBucketList}
         />
       <bucketListStack.Screen
-        name='Navigate to Post'
+        name='Post'
         component={Post}
       />
     </bucketListStack.Navigator>
