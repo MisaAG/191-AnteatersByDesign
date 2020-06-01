@@ -12,20 +12,20 @@ import {
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
-import {images} from "../../../pictureindex.js";
-import firebase from "../../../firebaseconfig.js";
+import {images} from '../../../pictureindex.js';
+import firebase from '../../../firebaseconfig.js';
 const postsRef = firebase.database().ref('/posts');
 
 const Feed = ({navigation}) => {
-  const [posts, setPosts] = useState(null);
   const [isLoading, setLoading] = useState(true);
-  let localPosts = [];
-  let soloPosts = [];
+  const [posts, setPosts] = useState([]);
+  const [localPosts, setLocalPosts] = useState([]);
+  const [soloPosts, setSoloPosts] = useState([]);
 
   const retrievePosts = async () => {
     // setPosts({name: "name"});
     const initPosts = [];
-    await postsRef.on('value', snapshot => {
+    await postsRef.once('value', snapshot => {
       const data = snapshot.val();
       // if(snapshot.val()) {
       //console.log("*****data******",data);
@@ -33,11 +33,11 @@ const Feed = ({navigation}) => {
       // console.log("*****initPosts*****",initPosts);
       setPosts(initPosts);
       setLoading(false);
-      console.log('******posts*******', posts);
+      console.log('******posts*******', initPosts);
       // }
-      if (posts && posts.length > 0) {
-        localPosts = posts.filter(p => p.location === 'San Francisco');
-        soloPosts = posts.filter(p => p.tags.includes('solotravel'));
+      if (initPosts.length > 0) {
+        setLocalPosts(initPosts.filter(p => p.location === 'San Francisco'));
+        setSoloPosts(initPosts.filter(p => p.tags.includes('solotravel')));
       }
       console.log('******localposts*******', localPosts);
       console.log('******soloposts*******', soloPosts);
@@ -57,39 +57,22 @@ const Feed = ({navigation}) => {
     // var splitPicture = picturePath.split("/");
     // var getName = splitPicture[splitPicture.length - 1].split(".")[0];
 
-        return (
-            <View>
-                <TouchableOpacity onPress ={ () =>
-                    navigation.navigate('Post',{post: item})
-                }>
-                    <Image source={images[item.pictureCollection[0].picture]} style={styles.postImage} resizeMode="cover"/>
-                </TouchableOpacity>
-                <View style={styles.feedItem}>
-                <Text style={styles.caption}>{item.title}</Text>
-                </View>
-            </View>
-        );
-    }
-
-    //render() {
-        return(
-            <SafeAreaView style={styles.container}>
-                { isLoading ?
-                     (<View style={styles.header}>
-                          <Text style={styles.headerTitle}> Loading </Text>
-                      </View>
-                     ) : (
-                       <Carousel
-                           style={styles.feed}
-                           // ref={ ref => this.carousel = ref }
-                           data={posts}
-                           sliderWidth={sliderWidth}
-                           itemWidth={itemWidth}
-                           renderItem = {this.renderPost}
-                       />
-                    )
-                }
-            </SafeAreaView>
+    return (
+      <View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Post', {post: item})}>
+          <Image
+            source={images[item.pictureCollection[0].picture]}
+            style={styles.postImage}
+            resizeMode="cover"
+          />
+        </TouchableOpacity>
+        <View style={styles.feedItem}>
+          <Text style={styles.caption}>{item.title}</Text>
+        </View>
+      </View>
+    );
+  };
 
   //render() {
   return (
@@ -100,14 +83,6 @@ const Feed = ({navigation}) => {
         </View>
       ) : (
         <ScrollView>
-          <Carousel
-            style={styles.feed}
-            // ref={ ref => this.carousel = ref }
-            data={localPosts}
-            sliderWidth={sliderWidth}
-            itemWidth={itemWidth}
-            renderItem={renderPost}
-          />
           <Carousel
             style={styles.feed}
             // ref={ ref => this.carousel = ref }
