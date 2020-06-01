@@ -35,21 +35,7 @@ import Search from './src/components/Search/Search';
 import Results from './src/components/Search/Results';
 import SignUp from './src/components/SignUp/SignUp';
 
-// Place Holder Screens
-
-EditProfile = () =>
-  <>
-  <View style={styles.center}>
-    <Text style={styles.title}>Edit Profile</Text>
-  </View>
-  </>
-
-Settings = () =>
-  <>
-  <View style={styles.center}>
-    <Text style={styles.title}>Settings</Text>
-  </View>
-  </>
+import firebase from './firebaseconfig'
 
 const bottomTab = createMaterialBottomTabNavigator();
 function AppTabs() {
@@ -59,7 +45,7 @@ function AppTabs() {
     activeColor="white"
     style={{ backgroundColor: 'light blue' }}>
       <bottomTab.Screen
-        name='Feed'
+        name = 'Feed'
         component={HomeStack}
         options={{
           tabBarLabel: 'Home',
@@ -156,24 +142,20 @@ function BucketListStack() {
   )
 }
 
-export default function App() {
-  const isSignedIn = 1;
-  return (
-    isSignedIn ? (
-      <>
-      <NavigationContainer>
-        <AppTabs />
-      </NavigationContainer>
-      </>
-    ) : (
-      <>
-      <NavigationContainer>
-        <AuthStack />
-      </NavigationContainer>
-      </>
-    )
-  );
+const appStack = createStackNavigator();
+function AppStack() {
+  return(
+    <appStack.Navigator>
+    <appStack.Screen name="Login" component={AuthStack} />
+    <appStack.Screen name="AppTabs"  component={AppTabs}
+    options={ {title: 'Travel By Design', headerLeft: null }} 
+    />
+    </appStack.Navigator>
+  ) 
+}
 
+export default function App() {
+  return <NavigationContainer><AppStack /></NavigationContainer>;
 }
 
 const styles = StyleSheet.create({

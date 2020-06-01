@@ -1,95 +1,119 @@
-import React, { Component, useState } from 'react';
-import { StyleSheet, View, Image, TextInput, TouchableOpacity, Text} from "react-native";
-import {KeyboardAvoidingView} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
+import firebase from '../../../firebaseconfig';
 
-import FormButton from '../FormButton';
-import FormInput from '../FormInput';
 
-import SignUp from '../SignUp/SignUp';
+export default class Login extends Component {
+  
+  constructor() {
+    super();
+    this.state = { 
+      email: '', 
+      password: '',
+      isLoading: false
+    }
+  }
 
-export default function Login({ navigation }) {
+  updateInputVal = (val, prop) => {
+    const state = this.state;
+    state[prop] = val;
+    this.setState(state);
+  }
 
-        const [email, setEmail] = useState('');
-        const [password, setPassword] = useState('');
-        return(
-        <View style={styles.container}>
-            <View style={styles.logoContainer}>
-                <Image 
-                    style={styles.logo}
-                    source={require('./img.jpg')}
-                />
-            </View>
-        
-            <KeyboardAvoidingView style={styles.formContainer} behavior="position" enabled>
-            <FormInput
-                value={email}
-                placeholderText='Email'
-                onChangeText={userEmail => setEmail(userEmail)}
-                autoCapitalize='none'
-                keyboardType='email-address'
-                autoCorrect={false}
-            />
-            <FormInput
-                value={password}
-                placeholderText='Password'
-                onChangeText={userPassword => setPassword(userPassword)}
-                secureTextEntry={true}
-            />
-            <FormButton buttonTitle='Login' onPress={() => alert('login button')} />
-            
-            <TouchableOpacity
-                style={styles.navButton}
-                 onPress={() => alert('signup button')}
-            >
-            <Text style={styles.navButtonText}>New user? Join here</Text>
-            </TouchableOpacity>
-            </KeyboardAvoidingView>
+  userLogin = () => {
+    if(this.state.email === '' && this.state.password === '') {
+      Alert.alert('Enter details to signin!')
+    } else {
+      this.setState({
+        isLoading: true,
+      })
+      firebase
+      .auth()
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then((res) => {
+        console.log(res)
+        console.log('User logged-in successfully!')
+        this.setState({
+          isLoading: false,
+          email: '', 
+          password: ''
+        })
+        this.props.navigation.navigate('AppTabs')
+      })
+      .catch(error => this.setState({ errorMessage: error.message }))
+    }
+  }
 
+  render() {
+    if(this.state.isLoading){
+      return(
+        <View style={styles.preloader}>
+          <ActivityIndicator size="large" color="#9E9E9E"/>
         </View>
-        );
+      )
+    }    
+    return (
+      <View style={styles.container}>  
+        <TextInput
+          style={styles.inputStyle}
+          placeholder="Email"
+          value={this.state.email}
+          onChangeText={(val) => this.updateInputVal(val, 'email')}
+        />
+        <TextInput
+          style={styles.inputStyle}
+          placeholder="Password"
+          value={this.state.password}
+          onChangeText={(val) => this.updateInputVal(val, 'password')}
+          maxLength={15}
+          secureTextEntry={true}
+        />   
+        <Button
+          color="#3740FE"
+          title="Signin"
+          onPress={() => this.userLogin()}
+        />   
+
+        <Text 
+          style={styles.loginText}
+          onPress={() => this.props.navigation.navigate('Signup')}>
+          Don't have account? Click here to signup
+        </Text>                          
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#f5f5f5',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      padding: 35,
+      backgroundColor: '#fff'
     },
-    logo: {
-        width: 450,
-        height: 500
+    inputStyle: {
+      width: '100%',
+      marginBottom: 15,
+      paddingBottom: 15,
+      alignSelf: "center",
+      borderColor: "#ccc",
+      borderBottomWidth: 1
     },
-    logoContainer: {
-        alignItems: 'center',
-        flexGrow: 0.6,
-        justifyContent: 'center'
+    loginText: {
+      color: '#3740FE',
+      marginTop: 25,
+      textAlign: 'center'
     },
-    input: {
-        height: 40,
-        backgroundColor: 'rgba(255,255,255, 0.9)',
-        marginBottom: 20,
-        color: '#1E1E1E',
-        paddingHorizontal: 10
-    },
-    buttonContainer: {
-        backgroundColor: '#2980b9',
-        paddingVertical: 15,
-        marginBottom: 10
-    },
-    buttonText: {
-        textAlign: 'center',
-        color: '#FFFFFF'
-    },
-    text: {
-        fontSize: 24,
-        marginBottom: 10
-      },
-      navButton: {
-        marginTop: 15
-      },
-      navButtonText: {
-        fontSize: 20,
-        color: '#6646ee'
-      }
-});
+    preloader: {
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+      position: 'absolute',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#fff'
+    }
+  });
