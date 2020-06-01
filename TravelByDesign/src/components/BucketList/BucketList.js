@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, FlatList, Image, SafeAreaView, Dimensions,TouchableOpacity} from "react-native";
 import CreateBucketList from './CreateBucketList';
 
-import {database} from "../../../firebaseconfig.js";
-import {images} from "../../../pictureindex.js";
+import firebase from "../../../firebaseconfig.js";
+
+const database = firebase.database();
 
 const numColumns = 2
 const WIDTH = Dimensions.get('window').width

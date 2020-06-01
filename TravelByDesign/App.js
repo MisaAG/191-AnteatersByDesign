@@ -117,7 +117,8 @@ function AuthStack() {
         component={Login}
         options={ {title: 'Travel By Design'}}/>   
       <Stack.Screen name='Signup' component={SignUp} />
-      <Stack.Screen name='AppTabs' component={AppTabs} />
+      <Stack.Screen name='AppTabs' component={AppTabs} 
+      options={{ headerLeft: () => null }} />
     </Stack.Navigator>
   );
 }
