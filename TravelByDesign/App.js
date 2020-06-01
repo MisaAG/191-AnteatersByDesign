@@ -88,9 +88,13 @@ function AppTabs() {
         name="UserProfile"
         component={UserProfile}
         options={{
-          tabBarLabel: 'UserProfile',
+          tabBarLabel: 'Profile',
           tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="alien" color={color} size={26} />
+            <MaterialCommunityIcons
+              name="account-star"
+              color={color}
+              size={26}
+            />
           ),
         }}
       />
@@ -112,14 +116,10 @@ const authStack = createStackNavigator();
 function AuthStack() {
   return (
     <Stack.Navigator initialRouteName="Login">
-      <Stack.Screen
-        name="Login"
-        component={Login}
-        options={{title: 'Travel By Design'}}
-      />
+      <Stack.Screen name="Login" component={Login} options={{title: 'Login'}} />
       <Stack.Screen name="Signup" component={SignUp} />
       <Stack.Screen
-        name="AppTabs"
+        name="Travel By Design"
         component={AppTabs}
         options={{headerLeft: () => null}}
       />
