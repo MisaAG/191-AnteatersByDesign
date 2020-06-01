@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator, Image } from 'react-native';
 import firebase from '../../../firebaseconfig';
 
 
@@ -53,7 +53,10 @@ export default class Login extends Component {
       )
     }    
     return (
-      <View style={styles.container}>  
+      <View style={styles.container}>
+
+        <Image source={require('./TBDIcon.png')} position='relative' marginBottom='15%' padding='50%'/>
+
         <TextInput
           style={styles.inputStyle}
           placeholder="Email"
