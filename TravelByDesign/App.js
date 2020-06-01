@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, HeaderTitle} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -48,6 +48,7 @@ function AppTabs() {
         name="Feed"
         component={HomeStack}
         options={{
+          Header: null,
           tabBarLabel: 'Home',
           tabBarIcon: ({color}) => (
             <MaterialCommunityIcons name="home" color={color} size={26} />
@@ -121,7 +122,7 @@ function AuthStack() {
       <Stack.Screen
         name="Travel By Design"
         component={AppTabs}
-        options={{headerLeft: () => null}}
+        options={{headerLeft: () => null }}
       />
     </Stack.Navigator>
   );
