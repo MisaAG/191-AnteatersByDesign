@@ -23,7 +23,7 @@ export default class SignUp extends Component {
 
   registerUser = () => {
     if(this.state.email === '' && this.state.password === '') {
-      Alert.alert('Enter details to signup!')
+      Alert.alert('Enter details to sign up!')
     } else {
       this.setState({
         isLoading: true,
@@ -80,7 +80,7 @@ export default class SignUp extends Component {
         />   
         <Button
           color="#3740FE"
-          title="Signup"
+          title="Sign up"
           onPress={() => this.registerUser()}
         />
 

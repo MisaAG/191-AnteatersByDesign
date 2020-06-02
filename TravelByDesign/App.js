@@ -43,7 +43,12 @@ function AppTabs() {
     <bottomTab.Navigator
       initialRouteName="Feed"
       activeColor="white"
-      style={{backgroundColor: 'light blue'}}>
+      tabBarOptions={{
+        labelStyle: { fontSize: 12 },
+        tabStyle: { width: 100 },
+        style: { backgroundColor: 'light blue' },
+      }}
+      >
       <bottomTab.Screen
         name="Feed"
         component={HomeStack}
@@ -51,7 +56,7 @@ function AppTabs() {
           Header: null,
           tabBarLabel: 'Home',
           tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
+            <MaterialCommunityIcons name="home" color={color} size={26}/>
           ),
         }}
       />
@@ -117,9 +122,9 @@ const authStack = createStackNavigator();
 function AuthStack() {
   return (
     <Stack.Navigator initialRouteName="Login">
-      <Stack.Screen name="Login" component={Login} options={{title: 'Login'}} />
+      <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Signup" component={SignUp} />
-      <Stack.Screen
+       <Stack.Screen
         name="Travel By Design"
         component={AppTabs}
         options={{headerLeft: () => null }}
