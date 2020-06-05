@@ -85,12 +85,18 @@ const BucketList = ({route, navigation}) => {
     return(
         <SafeAreaView style={styles.container}>
 
-            <Image style={styles.add} source={require('./add_blue.jpg')}/>
+            {/* <Image style={styles.add} source={require('./add_blue.jpg')}/> */}
 
             {isLoading ?
               <View style={styles.header}>
                   <Text style={styles.headerTitle}> Loading </Text>
               </View> :
+              
+              <View style={styles.container}>
+              <Text style={styles.headerTitle}> My List </Text>
+              
+              
+              
               <FlatList
               data={pictures}
               renderItem={this._renderItem}
@@ -98,7 +104,7 @@ const BucketList = ({route, navigation}) => {
               numColumns={numColumns}
               extraData={pictures}
               />
-
+              </View>
             }
 
         </SafeAreaView>
@@ -183,7 +189,9 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         fontSize: 20,
-        fontWeight: "500"
+        fontWeight: "500",
+        padding: 35,
+        marginHorizontal: 130
     },
     add: {
         height: 150,

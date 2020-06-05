@@ -88,7 +88,7 @@ function AppTabs() {
           tabBarIcon: ({color}) => (
             <MaterialCommunityIcons name="compass" color={color} size={26} />
           ),
-          title: "My List"
+          HeaderTitle: "My List"
         }}
       />
       <bottomTab.Screen
@@ -167,6 +167,7 @@ function BucketListStack() {
     <bucketListStack.Navigator>
       <bucketListStack.Screen
         name="My List"
+        title="Bucket List"
         component={BucketList}
         />
       <bucketListStack.Screen
