@@ -53,7 +53,7 @@ export default class Login extends Component {
       )
     }    
     return (
-      <View style={styles.container}>
+      <View style={styles.container} >
 
         <Image source={require('./TBDIcon.png')} position='relative' marginBottom='15%' padding='50%'/>
 

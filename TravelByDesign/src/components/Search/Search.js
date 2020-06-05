@@ -93,7 +93,7 @@ export default class Search extends Component{
 					onChange={(selected) => this.setState({ selectedTags: selected })} />
 			</View>
 
-            <Button title="Go"/>
+            <Button title="Go" />
 
             </KeyboardAvoidingView>
 
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         color: '#FFFFFF'
     },
     header: {
-        paddingTop: 64,
+        paddingTop: 30,
         paddingBottom: 16,
         backgroundColor: "#FFF",
         alignItems: "center",

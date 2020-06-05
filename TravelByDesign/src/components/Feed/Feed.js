@@ -88,9 +88,11 @@ const Feed = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       {isLoading ? (
+        
         <View style={styles.header}>
           <Text style={styles.headerTitle}> Loading </Text>
         </View>
+       
       ) : (
         <ScrollView>
           <Text style={styles.headerTitle}> Local Attractions </Text>
@@ -118,7 +120,8 @@ const Feed = ({navigation}) => {
           })}
         </ScrollView>
       )}
-    </SafeAreaView>
+   </SafeAreaView>
+    
   );
   // <Carousel
   //   style={styles.feed}
@@ -249,7 +252,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    paddingTop: 15,
+    paddingTop: 0,
   },
   carousel: {
     height: 250,
@@ -273,7 +276,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   header: {
-    paddingTop: 64,
+    paddingTop: 20,
     paddingBottom: 16,
     backgroundColor: '#FFF',
     alignItems: 'center',
@@ -301,6 +304,12 @@ const styles = StyleSheet.create({
     height: 350,
     marginVertical: 16,
   },
+  topRow: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    paddingTop: 30
+},
   caption: {
     fontSize: 25,
   },

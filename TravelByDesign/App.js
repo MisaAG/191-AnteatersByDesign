@@ -88,6 +88,7 @@ function AppTabs() {
           tabBarIcon: ({color}) => (
             <MaterialCommunityIcons name="compass" color={color} size={26} />
           ),
+          title: "My List"
         }}
       />
       <bottomTab.Screen
@@ -112,9 +113,19 @@ const Stack = createStackNavigator();
 function HomeStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Feed" component={Feed} />
+      <Stack.Screen name="Feed" component={Feed} options={{title: null}}/>
       <Stack.Screen name="Post" component={Post} />
     </Stack.Navigator>
+  );
+}
+
+const searchStack = createStackNavigator();
+function SearchStack() {
+  return (
+    <searchStack.Navigator>
+      <searchStack.Screen name="Search" component={Search} />
+      <searchStack.Screen name="Results" component={Results} />
+    </searchStack.Navigator>
   );
 }
 
@@ -124,12 +135,29 @@ function AuthStack() {
     <Stack.Navigator initialRouteName="Login">
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Signup" component={SignUp} />
-       <Stack.Screen
-        name="Travel By Design"
-        component={AppTabs}
-        options={{headerLeft: () => null }}
-      />
     </Stack.Navigator>
+  );
+}
+
+/*
+<Stack.Screen
+        name="Travel By Design"
+        children={AppTabs}
+        options={{headerLeft: () => null}}
+      />
+*/
+
+const appStack = createStackNavigator();
+function AppStack() {
+  return (
+    <appStack.Navigator initialRouteName="Login" options={{headerMode: 'none'}}>
+      <appStack.Screen name="Login" component={AuthStack} />
+       <appStack.Screen
+        name="Travel By Design"
+        children={AppTabs}
+        options={{headerLeft: () => null}}
+      />
+    </appStack.Navigator>
   );
 }
 
@@ -156,7 +184,7 @@ function BucketListStack() {
 export default function App() {
   return (
     <NavigationContainer>
-      <AuthStack />
+      <AppStack />
     </NavigationContainer>
   );
 }

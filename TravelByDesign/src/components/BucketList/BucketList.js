@@ -94,10 +94,6 @@ const BucketList = ({route, navigation}) => {
     return(
         <SafeAreaView style={styles.container}>
 
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>Bucket List</Text>
-            </View>
-
             <Image style={styles.add} source={require('./add_blue.jpg')}/>
 
             {isLoading ?
