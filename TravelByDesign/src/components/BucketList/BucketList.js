@@ -65,18 +65,9 @@ const BucketList = ({route, navigation}) => {
     //     return dataList
     // }
     _getPost = async (postid) => {
-        let snapshot = await postsRef.once('value', snapshot => {
-            return snapshot.val().postid;
-            // console.log("executing getPost");
-            // const data = snapshot.val();
-            // console.log("***data***",data);
-            // return data[postid];
+        let snapshotData = await postsRef.once('value', snapshot => {
+            navigation.navigate('Post',{post: snapshot.val()[postid]});
         })
-    }
-        // navigation.navigate('Post',{post: fetchedPost})
-    _postandNavigate = async (postid) => {
-        const result = await _getPost(postid).then(console.log);
-        // console.log("***result***",result);
     }
 
     _renderItem = ({item, index}) => {
@@ -84,7 +75,7 @@ const BucketList = ({route, navigation}) => {
         console.log(item);
         return (
             <View style={itemStyle}>
-                <TouchableOpacity onPress ={_postandNavigate} >
+                <TouchableOpacity onPress ={ () => _getPost(item.postid)} >
                     <Image source={images[item.thumbnail]} style={styles.itemImage}/>
                 </TouchableOpacity>
             </View>
