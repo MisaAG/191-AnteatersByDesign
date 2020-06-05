@@ -113,7 +113,7 @@ const Stack = createStackNavigator();
 function HomeStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Feed" component={Feed} options={{title: null}}/>
+      <Stack.Screen name="Feed" component={Feed} options={{headerTitle: null}}/>
       <Stack.Screen name="Post" component={Post} />
     </Stack.Navigator>
   );
@@ -133,7 +133,10 @@ const authStack = createStackNavigator();
 function AuthStack() {
   return (
     <Stack.Navigator initialRouteName="Login">
-      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name=" " 
+      component={Login} 
+      options={{Header: null}} 
+      />
       <Stack.Screen name="Signup" component={SignUp} />
     </Stack.Navigator>
   );
@@ -151,7 +154,9 @@ const appStack = createStackNavigator();
 function AppStack() {
   return (
     <appStack.Navigator initialRouteName="Login" options={{headerMode: 'none'}}>
-      <appStack.Screen name="Login" component={AuthStack} />
+      <appStack.Screen name="Login" component={AuthStack} 
+      options={{HeaderTitle: ' '}}
+      />
        <appStack.Screen
         name="Travel By Design"
         children={AppTabs}

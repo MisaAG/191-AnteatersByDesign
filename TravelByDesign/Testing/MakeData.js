@@ -101,18 +101,17 @@ function getCommand() {
     }
     */
     var carousel = [
-      { picture: 'sushi',
-        caption: "Treating myself to sushi for my birthday" }
+      { picture: 'nepal',
+        caption: "Just went on a long hike, can't beat the views of the Himalayas!" }
     ];
     var tags = [
-      "foodie",
-      "luxury"
+      "adventure"
     ];
     getUsers();
     setTimeout(
       function() {
           console.log("timer complete, executing writeNewPost");
-          writeNewPost(userDocs["-M6k9nHgNn8nOLJE9NhW"], "Splurging on Sushi", carousel, "San Francisco",tags);
+          writeNewPost(userDocs["-M6g3oCP_ZCZ4pkzKYK4"], "Greatest Hike", carousel, "Nepal",tags);
           console.log("post written");
       }
       , 3000);
