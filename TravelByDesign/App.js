@@ -88,7 +88,7 @@ function AppTabs() {
           tabBarIcon: ({color}) => (
             <MaterialCommunityIcons name="compass" color={color} size={26} />
           ),
-          HeaderTitle: "My List"
+          HeaderTitle: "Bucket List"
         }}
       />
       <bottomTab.Screen
@@ -154,7 +154,7 @@ const appStack = createStackNavigator();
 function AppStack() {
   return (
     <appStack.Navigator initialRouteName="Login" options={{headerMode: 'none'}}>
-      <appStack.Screen name="Login" component={AuthStack} 
+      <appStack.Screen name="Welcome to Travel By Design" component={AuthStack} 
       options={{HeaderTitle: ' '}}
       />
        <appStack.Screen
@@ -171,7 +171,7 @@ function BucketListStack() {
   return (
     <bucketListStack.Navigator>
       <bucketListStack.Screen
-        name="My List"
+        name="Bucket List"
         title="Bucket List"
         component={BucketList}
         />

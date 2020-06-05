@@ -93,7 +93,7 @@ const BucketList = ({route, navigation}) => {
               </View> :
               
               <View style={styles.container}>
-              <Text style={styles.headerTitle}> My List </Text>
+              <Text style={styles.headerTitle}> Bucket List </Text>
               
               
               
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: "500",
         padding: 35,
-        marginHorizontal: 130
+        marginHorizontal: 115
     },
     add: {
         height: 150,
