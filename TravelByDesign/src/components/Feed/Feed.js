@@ -43,12 +43,12 @@ const Feed = ({navigation}) => {
       if (initPosts.length > 0) {
         setLocalPosts(initPosts.filter(p => p.location === 'San Francisco'));
         setPostCollections({
-          solotravel : initPosts.filter(p => p.tags.includes('solotravel')),
-          grouptravel : initPosts.filter(p => p.tags.includes('groupTravel')),
-          business : initPosts.filter(p => p.tags.includes('business')),
-          adventure : initPosts.filter(p => p.tags.includes('adventure')),
-          luxury : initPosts.filter(p => p.tags.includes('luxury')),
-          foodie : initPosts.filter(p => p.tags.includes('foodie')),
+          "#solotravel" : initPosts.filter(p => p.tags.includes('solotravel')),
+          "#grouptravel" : initPosts.filter(p => p.tags.includes('groupTravel')),
+          "#business" : initPosts.filter(p => p.tags.includes('business')),
+          "#adventure" : initPosts.filter(p => p.tags.includes('adventure')),
+          "#luxury" : initPosts.filter(p => p.tags.includes('luxury')),
+          "#foodie" : initPosts.filter(p => p.tags.includes('foodie')),
         });
       }
     });
