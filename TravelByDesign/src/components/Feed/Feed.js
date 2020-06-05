@@ -38,18 +38,18 @@ const Feed = ({navigation}) => {
       // console.log("*****initPosts*****",initPosts);
       setPosts(initPosts);
       setLoading(false);
-      console.log('******posts*******', initPosts);
+      // console.log('******posts*******', initPosts);
       // }
       if (initPosts.length > 0) {
         setLocalPosts(initPosts.filter(p => p.location === 'San Francisco'));
-        setPostCollections([
-          initPosts.filter(p => p.tags.includes('solotravel')),
-          initPosts.filter(p => p.tags.includes('groupTravel')),
-          initPosts.filter(p => p.tags.includes('business')),
-          initPosts.filter(p => p.tags.includes('adventure')),
-          initPosts.filter(p => p.tags.includes('luxury')),
-          initPosts.filter(p => p.tags.includes('foodie')),
-        ]);
+        setPostCollections({
+          solotravel : initPosts.filter(p => p.tags.includes('solotravel')),
+          grouptravel : initPosts.filter(p => p.tags.includes('groupTravel')),
+          business : initPosts.filter(p => p.tags.includes('business')),
+          adventure : initPosts.filter(p => p.tags.includes('adventure')),
+          luxury : initPosts.filter(p => p.tags.includes('luxury')),
+          foodie : initPosts.filter(p => p.tags.includes('foodie')),
+        });
       }
     });
     //return initPosts;
@@ -88,11 +88,11 @@ const Feed = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       {isLoading ? (
-        
+
         <View style={styles.header}>
           <Text style={styles.headerTitle}> Loading </Text>
         </View>
-       
+
       ) : (
         <ScrollView>
           <Text style={styles.headerTitle}> Local Attractions </Text>
@@ -105,23 +105,26 @@ const Feed = ({navigation}) => {
             renderItem={renderPost}
           />
           <Text style={styles.headerTitle}> Based on your interests </Text>
-          {postCollections.map((postCollection, index) => {
+          {Object.keys(postCollections).map((key, index) => {
             return (
-              <Carousel
-                key={index}
-                style={styles.feed}
-                // ref={ ref => this.carousel = ref }
-                data={postCollection}
-                sliderWidth={sliderWidth}
-                itemWidth={itemWidth}
-                renderItem={renderPost}
-              />
+              <View>
+                  <Text style={styles.tagTitle}> {key} </Text>
+                  <Carousel
+                    key={index}
+                    style={styles.feed}
+                    // ref={ ref => this.carousel = ref }
+                    data={postCollections[key]}
+                    sliderWidth={sliderWidth}
+                    itemWidth={itemWidth}
+                    renderItem={renderPost}
+                  />
+              </View>
             );
           })}
         </ScrollView>
       )}
    </SafeAreaView>
-    
+
   );
   // <Carousel
   //   style={styles.feed}
@@ -303,6 +306,14 @@ const styles = StyleSheet.create({
     width: undefined,
     height: 350,
     marginVertical: 16,
+  },
+  tagTitle: {
+    paddingTop: 20,
+    paddingBottom: 16,
+    fontSize: 24,
+    fontWeight: '700',
+    paddingHorizontal: 20,
+    textDecorationLine: 'underline'
   },
   topRow: {
     flex: 1,
