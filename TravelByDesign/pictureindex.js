@@ -9,6 +9,17 @@ const images = {
     downtown : require("./asset/downtown.jpg"),
     chinatown : require("./asset/chinatown.jpg"),
     salesforce : require("./asset/salesforce.jpg"),
-    sushi : require("./asset/sushi.jpg")
+    sushi : require("./asset/sushi.jpg"),
+    burj : require("./asset/burj.png"),
+    frankfurt : require("./asset/frankfurt.jpg"),
+    opera : require("./asset/opera.jpg"),
+    morocco : require("./asset/morocco.png"),
+    groupburgers : require("./asset/groupburgers.png"),
+    curry : require("./asset/curry.png"),
+    boca : require("./asset/boca.png"),
+    ramen : require("./asset/ramen.png"),
+    kbbq : require("./asset/kbbq.png"),
+    boats : require("./asset/boats.jpg"),
+    nepal : require("./asset/nepal.jpg")
 }
 export {images};
