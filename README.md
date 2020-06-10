@@ -24,5 +24,5 @@ npm run ios
 Official docs:
 https://reactnative.dev/docs/environment-setup
 
-current routing is decided by which class is shared in the app.js render. 
+current routing is decided by stacked navigators in app.js. 
 Current available classes is decided by the imported classes in app.js.

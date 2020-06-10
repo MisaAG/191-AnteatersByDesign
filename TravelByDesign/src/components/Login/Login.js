@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator, Image } from 'react-native';
 import firebase from '../../../firebaseconfig';
 
+// Used this site for the Authentication tutorial
+// https://www.positronx.io/react-native-firebase-login-and-user-registration-tutorial/
 
 export default class Login extends Component {
   

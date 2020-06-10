@@ -35,9 +35,10 @@ import Search from './src/components/Search/Search';
 import Results from './src/components/Search/Results';
 import SignUp from './src/components/SignUp/SignUp';
 
-import firebase from './firebaseconfig';
 
 const bottomTab = createMaterialBottomTabNavigator();
+// AppTabs uses bottomTab to create screens with the bottom tab navigator. 
+// Each screen icon is changed on the line <MaterialCommunityIcons name="*icon name* "
 function AppTabs() {
   return (
     <bottomTab.Navigator
@@ -110,6 +111,7 @@ function AppTabs() {
 }
 
 const Stack = createStackNavigator();
+// Stack navigator for home screen; moving from the feed to a single post
 function HomeStack() {
   return (
     <Stack.Navigator>
@@ -120,6 +122,9 @@ function HomeStack() {
 }
 
 const searchStack = createStackNavigator();
+// Search stack not yet implented
+// Once this works the SearchStack function 
+//  can replace the Search component in AppTabs function
 function SearchStack() {
   return (
     <searchStack.Navigator>
@@ -130,6 +135,7 @@ function SearchStack() {
 }
 
 const authStack = createStackNavigator();
+// AuthStack for Login and Signup screens
 function AuthStack() {
   return (
     <Stack.Navigator initialRouteName="Login">
@@ -151,10 +157,16 @@ function AuthStack() {
 */
 
 const appStack = createStackNavigator();
+
+//  AppStack nests AuthStack and AppTabs
+//  Needs some work on the headers
+// The app can be structured differently than this. 
+// Instead of AppStack, AppTabs could be added to AuthStack, but
+// It still needs work so the user doesn't swipe back to the login page while in the app...
 function AppStack() {
   return (
     <appStack.Navigator initialRouteName="Login" options={{headerMode: 'none'}}>
-      <appStack.Screen name="Welcome to Travel By Design" component={AuthStack} 
+      <appStack.Screen name="Login" headerTitle="Welcome to Travel by Design" component={AuthStack} 
       options={{HeaderTitle: ' '}}
       />
        <appStack.Screen
@@ -167,6 +179,8 @@ function AppStack() {
 }
 
 const bucketListStack = createStackNavigator();
+
+// BucketListStack should replace BucketList component in AppTabs when it works.
 function BucketListStack() {
   return (
     <bucketListStack.Navigator>
@@ -187,6 +201,7 @@ function BucketListStack() {
   );
 }
 
+// This is the function that contains the nested navigators.
 export default function App() {
   return (
     <NavigationContainer>
